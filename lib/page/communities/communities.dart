@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_userprofile1/page/content_page/content_page.dart';
 
 import '../../widget/appbar_widget.dart';
 
@@ -86,7 +87,9 @@ class _CommunitiesState extends State<Communities> {
   @override
   Widget buildFloatingAddContent(BuildContext context){
     return FloatingActionButton(
-      onPressed: (){},
+      onPressed: (){
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => ContentPage()));
+      },
       backgroundColor: Colors.purple,
       child: const Icon(
         Icons.edit,
