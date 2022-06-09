@@ -16,7 +16,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
     return Scaffold(
       //top bar
-      appBar: buildAppBar(context),
+      appBar: buildAppBar(context, "User Profile"),
       backgroundColor: Color.fromRGBO(156, 180, 171, 1),
       //list view # maybe edit this to change the look
       body: ListView(

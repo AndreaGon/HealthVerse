@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_userprofile1/page/communities/communities.dart';
 import 'package:flutter_userprofile1/page/profile_page/profile_page.dart';
 
 void main() {
@@ -16,6 +17,6 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.green[300],
         ),
         title: title,
-        home: ProfilePage());
+        home: Communities());
   }
 }
