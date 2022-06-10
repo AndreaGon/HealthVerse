@@ -28,7 +28,7 @@ class _ContentPageState extends State<ContentPage>{
     return Column(
       children: <Widget>[
           Card(
-            color: Colors.grey,
+            color: Color.fromARGB(255, 214, 214, 214),
             margin: EdgeInsets.all(16.0),
             child: Padding(
               padding: EdgeInsets.all(16.0),

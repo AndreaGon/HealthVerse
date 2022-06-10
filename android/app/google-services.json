@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "530694555942",
+    "project_id": "health-verse-a89f6",
+    "storage_bucket": "health-verse-a89f6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:530694555942:android:90627089104d8167bed9e7",
+        "android_client_info": {
+          "package_name": "com.example.healthverse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "530694555942-jopre4cuebguagvh3lgfltiaplafspp3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhCB8gT5UrSyOUkPcdi-03OLNdrhdQNlE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "530694555942-jopre4cuebguagvh3lgfltiaplafspp3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
