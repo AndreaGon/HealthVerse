@@ -5,15 +5,17 @@ import 'package:flutter_userprofile1/page/profile_page/profile_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   static final String title = "User Profile";
-
   
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

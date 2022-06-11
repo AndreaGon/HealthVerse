@@ -1,10 +1,14 @@
 
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_userprofile1/page/communities/utils/post_preferences.dart';
 import 'package:flutter_userprofile1/page/content_page/content_page.dart';
 
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+
+import '../../model/post.dart';
 import '../../widget/appbar_widget.dart';
 
 class Communities extends StatefulWidget {
@@ -14,19 +18,46 @@ class Communities extends StatefulWidget {
 
 class _CommunitiesState extends State<Communities> {
 
-  final posts = PostPreferences.posts;
-
+  List posts = [];
+  
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: buildFloatingAddContent(context),
-      appBar: buildAppBar(context, "Communities"),
-      backgroundColor: Color(0xF4EEED),
-      body: SafeArea(
-        child: ListView.builder(
-          itemCount: posts.length,
-          itemBuilder: (context, index) => buildPostCard(context, index),)
-    ));
+
+    getData();
+
+    return FutureBuilder<List>(
+      future: getData(),
+      builder: (BuildContext context, AsyncSnapshot<List> snapshot){
+        if( snapshot.connectionState == ConnectionState.waiting){
+          return  Scaffold(
+            body: Center(
+              child: LoadingAnimationWidget.staggeredDotsWave(
+                color: Colors.purple, size: 200
+              )
+            )
+          );
+        }
+        else{
+          if (snapshot.hasError){
+            return Center(child: Text('Error: ${snapshot.error}'));
+          }   
+          else{
+            posts = snapshot.data!;
+            return Scaffold(
+              floatingActionButton: buildFloatingAddContent(context),
+              appBar: buildAppBar(context, "Communities"),
+              backgroundColor: Color(0xF4EEED),
+              body: SafeArea(
+                child: ListView.builder(
+                  itemCount: posts.length,
+                  itemBuilder: (context, index) => buildPostCard(context, index),)
+              )
+            );
+          }     
+        }
+      }
+    );
+
     
   }
 
@@ -93,4 +124,14 @@ class _CommunitiesState extends State<Communities> {
       )
     );
   }
+
+
+  Future<List> getData() async {
+    QuerySnapshot query = await FirebaseFirestore.instance.collection("Postings").get();
+
+    final allPostings = query.docs.map((doc)=> Post.fromJson(doc.data() as Map<String, dynamic>)).toList();
+
+    return allPostings;
+  }
+
 }
