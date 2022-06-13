@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_userprofile1/model/user.dart';
 import 'package:flutter_userprofile1/page/profile_page/utils/user_pref.dart';
-import 'package:flutter_userprofile1/widget/appbar_widget.dart';
-import 'package:flutter_userprofile1/page/profile_page/widgets/profile_widget.dart';
+import 'package:flutter_userprofile1/page/profile_page/widget/profile_widget.dart';
+
+import '../../widget/appbar_widget.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -16,8 +17,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
     return Scaffold(
       //top bar
-      appBar: buildAppBar(context, "User Profile"),
-      backgroundColor: Color.fromRGBO(156, 180, 171, 1),
+      appBar: buildAppBar(context, "Profile Page"),
+      backgroundColor: Color.fromARGB(255, 228, 218, 218),
       //list view # maybe edit this to change the look
       body: ListView(
         physics: BouncingScrollPhysics(),
@@ -71,7 +72,7 @@ class _ProfilePageState extends State<ProfilePage> {
   // Container with icons & user info
   Widget buildContent(User user) => Container(
         decoration: BoxDecoration(
-            color: Colors.lightBlue[100],
+            color: Color.fromARGB(255, 222, 202, 186),
             border: Border.all(width: 1),
             borderRadius: BorderRadius.all(
               Radius.circular(20),
@@ -95,7 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   padding: const EdgeInsets.all(10),
                   margin: EdgeInsets.all(10),
                   child: Icon(Icons.local_fire_department_sharp,
-                      size: 35, color: Colors.lightBlue[100]),
+                      size: 35, color: Color.fromARGB(255, 228, 218, 218)),
                 ),
                 Text(
                   '${user.calories}',
@@ -116,8 +117,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       )),
                   padding: const EdgeInsets.all(10),
                   margin: EdgeInsets.all(10),
-                  child:
-                      Icon(Icons.timer, size: 35, color: Colors.lightBlue[100]),
+                  child: Icon(Icons.timer,
+                      size: 35, color: Color.fromARGB(255, 228, 218, 218)),
                 ),
                 Text(
                   '${user.hours}',
@@ -139,7 +140,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   padding: const EdgeInsets.all(10),
                   margin: EdgeInsets.all(10),
                   child: Icon(Icons.directions_walk,
-                      size: 40, color: Colors.lightBlue[100]),
+                      size: 40, color: Color.fromARGB(255, 228, 218, 218)),
                 ),
                 Text(
                   '${user.steps}',
@@ -154,7 +155,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget buildActivity(User user) => Container(
         decoration: BoxDecoration(
-            color: Color.fromARGB(255, 108, 172, 223),
+            color: Color.fromARGB(255, 222, 202, 186),
             border: Border.all(width: 1),
             borderRadius: BorderRadius.all(
               Radius.circular(20),

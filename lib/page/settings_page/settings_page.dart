@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_userprofile1/page/Login&Register_Pages/pages/login_page.dart';
-import 'package:flutter_userprofile1/page/Profile_Pages/utils/user_pref.dart';
-import 'package:flutter_userprofile1/page/Setting_Page/widget/settingappbar_widget.dart';
+import 'package:flutter_userprofile1/widget/appbar_widget.dart';
+
+import '../login_page/pages/login_page.dart';
+import '../profile_page/utils/user_pref.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -15,7 +16,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
     return Scaffold(
       //top bar
-      appBar: buildSettingAppBar(context),
+      appBar: buildAppBar(context, "Settings"),
       backgroundColor: Color.fromRGBO(156, 180, 171, 1),
       //list view # maybe edit this to change the look
       body: ListView(

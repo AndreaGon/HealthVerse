@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_userprofile1/page/communities/communities.dart';
-import 'package:flutter_userprofile1/page/profile_page/profile_page.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_userprofile1/page/login_page/pages/login_page.dart';
+import 'package:flutter_userprofile1/page/profile_page/profile_page.dart';
+import 'package:flutter_userprofile1/page/settings_page/settings_page.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -13,9 +15,7 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  static final String title = "User Profile";
-  
+class MyApp extends StatelessWidget {  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: Colors.green[300],
         ),
-        title: title,
-        home: Communities());
+        home: LoginPage());
   }
 }
