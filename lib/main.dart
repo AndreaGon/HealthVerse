@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_userprofile1/page/communities/communities.dart';
 
+import '../../widget/navigation_widget.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_userprofile1/page/login_page/pages/login_page.dart';
 import 'package:flutter_userprofile1/page/profile_page/profile_page.dart';
 import 'package:flutter_userprofile1/page/settings_page/settings_page.dart';
 import 'firebase_options.dart';
+
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,6 +27,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: Colors.green[300],
         ),
-        home: LoginPage());
+        home: Navigation());
   }
 }
