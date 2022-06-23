@@ -7,6 +7,7 @@ import 'package:flutter_userprofile1/page/communities/communities.dart';
 
 import '../../model/post.dart';
 import '../../widget/appbar_widget.dart';
+import '../../widget/navigation_widget.dart';
 
 class ContentPage extends StatefulWidget {
   @override
@@ -95,6 +96,6 @@ class _ContentPageState extends State<ContentPage>{
     );
     
     await docPost.set(postJson.toJson());
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => Communities()));
+    Navigator.of(context).pop();
   }
 }

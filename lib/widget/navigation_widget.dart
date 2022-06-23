@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_userprofile1/page/profile_page/profile_page.dart';
+import 'package:flutter_userprofile1/page/timer_page/timer_page.dart';
 
 import '../page/communities/communities.dart';
 
@@ -10,7 +11,7 @@ class Navigation extends StatefulWidget{
 class _NavigationState extends State {
   int _selectedIndex = 0;
   static List<Widget> _pages = <Widget>[
-    ProfilePage(),
+    TimerPage(),
     ProfilePage(),
     Communities()
     
