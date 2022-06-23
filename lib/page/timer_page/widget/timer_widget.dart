@@ -13,7 +13,7 @@ class AddTimeValue extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       InkWell(
-        onTap: (){
+        onTap: () {
           print(this.value);
         },
         child: Container(
