@@ -1,4 +1,4 @@
-class User {
+class Users {
   final String imagePath;
   final String name;
   final String email;
@@ -9,7 +9,7 @@ class User {
   final String date;
   final String last_exercise;
 
-  const User({
+  const Users({
     required this.imagePath,
     required this.name,
     required this.email,

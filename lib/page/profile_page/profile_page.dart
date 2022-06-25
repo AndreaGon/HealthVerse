@@ -1,9 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_userprofile1/model/user.dart';
+
 import 'package:flutter_userprofile1/page/profile_page/utils/user_pref.dart';
 import 'package:flutter_userprofile1/page/profile_page/widget/profile_widget.dart';
 
 import '../../widget/appbar_widget.dart';
+import 'utils/user_pref.dart';
+import 'widget/profile_widget.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -13,7 +17,9 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    final user = UserPreferences.myUser;
+    final users_pref = UserPreferences.myUser;
+    //current user login
+    final curr_user = FirebaseAuth.instance.currentUser!;
 
     return Scaffold(
       //top bar
@@ -28,25 +34,25 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           //the image method
           ProfileWidget(
-            imagePath: user.imagePath,
+            imagePath: users_pref.imagePath,
             onClicked: () async {},
           ),
           const SizedBox(
             height: 24,
           ),
-          buildInfo(user),
-          buildContent(user),
-          buildActivity(user),
+          buildInfo(users_pref),
+          buildContent(users_pref),
+          buildActivity(users_pref),
         ],
       ),
     );
   }
 
   // user info display
-  Widget buildInfo(User user) => Column(
+  Widget buildInfo(Users users_pref) => Column(
         children: [
           Text(
-            user.name,
+            users_pref.name,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 24,
@@ -56,21 +62,21 @@ class _ProfilePageState extends State<ProfilePage> {
             height: 4,
           ),
           Text(
-            user.email,
+            users_pref.email,
             style: TextStyle(color: Colors.black),
           ),
           const SizedBox(
             height: 4,
           ),
           Text(
-            "Total Points: ${user.points}",
+            "Total Points: ${users_pref.points}",
             style: TextStyle(color: Colors.black),
           ),
         ],
       );
 
   // Container with icons & user info
-  Widget buildContent(User user) => Container(
+  Widget buildContent(Users users_pref) => Container(
         decoration: BoxDecoration(
             color: Color.fromARGB(255, 222, 202, 186),
             border: Border.all(width: 1),
@@ -99,7 +105,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       size: 35, color: Color.fromARGB(255, 228, 218, 218)),
                 ),
                 Text(
-                  '${user.calories}',
+                  '${users_pref.calories}',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const Text('Calories'),
@@ -121,7 +127,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       size: 35, color: Color.fromARGB(255, 228, 218, 218)),
                 ),
                 Text(
-                  '${user.hours}',
+                  '${users_pref.hours}',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const Text('Hours'),
@@ -143,7 +149,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       size: 40, color: Color.fromARGB(255, 228, 218, 218)),
                 ),
                 Text(
-                  '${user.steps}',
+                  '${users_pref.steps}',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const Text('Steps'),
@@ -153,7 +159,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       );
 
-  Widget buildActivity(User user) => Container(
+  Widget buildActivity(Users users_pref) => Container(
         decoration: BoxDecoration(
             color: Color.fromARGB(255, 222, 202, 186),
             border: Border.all(width: 1),
@@ -185,7 +191,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   width: 24,
                 ),
                 Text(
-                  "${user.date}",
+                  "${users_pref.date}",
                   textAlign: TextAlign.start,
                   style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                 ),
@@ -193,7 +199,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
 
             Text(
-              "${user.last_exercise} . ${user.hours} Hours . ${user.calories} Calories",
+              "${users_pref.last_exercise} . ${users_pref.hours} Hours . ${users_pref.calories} Calories",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 15,
