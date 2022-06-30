@@ -1,11 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_userprofile1/main.dart';
-import 'dart:ffi';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_userprofile1/main.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter_userprofile1/page/login_page/pages/test_page.dart';
 import 'package:flutter_userprofile1/page/register_page/onboarding/onboarding1.dart';
+
+import '../../../model/user.dart';
+import '../../communities/communities.dart';
 
 class RegisterWidget extends StatefulWidget {
   @override
@@ -129,8 +132,31 @@ class _RegisterWidgetState extends State<RegisterWidget> {
         email: sign_in_emailController.text.trim(),
         password: sign_in_passwordController.text.trim(),
       );
+
     } on FirebaseAuthException catch (e) {
       print(e);
     }
+  }
+
+  Future createNewUserDetails() async {
+    print("Submtitting form");
+    formKey.currentState?.save();
+
+    final docPost = FirebaseFirestore.instance.collection('User').doc();
+  
+    Users postJson = Users(
+      id: "",
+      name: "",
+      email: "",
+      points: "0",
+      calories: "",
+      hours: "0",
+      steps: "",
+      date: "",
+      last_exercise: "0"
+    );
+    
+    await docPost.set(postJson.toJson());
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => Communities()));
   }
 }

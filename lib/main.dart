@@ -33,6 +33,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: Colors.green[300],
         ),
-        home: RegisterPage());
+        home: LoginPage());
   }
 }
