@@ -1,10 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_userprofile1/model/users.dart';
 
 import 'package:flutter_userprofile1/page/profile_page/utils/user_pref.dart';
 import 'package:flutter_userprofile1/page/profile_page/widget/profile_widget.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
+import '../../model/post.dart';
 import '../../widget/appbar_widget.dart';
 import 'utils/user_pref.dart';
 import 'widget/profile_widget.dart';
@@ -16,44 +19,61 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  List user = [];
+
   @override
   Widget build(BuildContext context) {
-    final users_pref = UserPreferences.myUser;
-    //current user login
-    final curr_user = FirebaseAuth.instance.currentUser!;
 
-    return Scaffold(
+    getUser();
+
+    return FutureBuilder<List>(
+      future: getUser(),
+      builder: (BuildContext context, AsyncSnapshot<List> snapshot){
+        if( snapshot.connectionState == ConnectionState.waiting){
+          return  Scaffold(
+            body: Center(
+              child: LoadingAnimationWidget.staggeredDotsWave(
+                color: Colors.purple, size: 200
+              )
+            )
+          );
+        }
+        else{
+          user = snapshot.data!;
+          return Scaffold(
       //top bar
-      appBar: buildAppBar(context, "Profile Page"),
-      backgroundColor: Color.fromARGB(255, 228, 218, 218),
-      //list view # maybe edit this to change the look
-      body: ListView(
-        physics: BouncingScrollPhysics(),
-        children: [
-          const SizedBox(
-            height: 10,
-          ),
-          //the image method
-          ProfileWidget(
-            imagePath: "../assets/user_profile.png",
-            onClicked: () async {},
-          ),
-          const SizedBox(
-            height: 24,
-          ),
-          buildInfo(users_pref),
-          buildContent(users_pref),
-          buildActivity(users_pref),
-        ],
-      ),
-    );
+            appBar: buildAppBar(context, "Profile Page"),
+            backgroundColor: Color.fromARGB(255, 228, 218, 218),
+            //list view # maybe edit this to change the look
+            body: ListView(
+              physics: BouncingScrollPhysics(),
+              children: [
+                const SizedBox(
+                  height: 10,
+                ),
+                //the image method
+                ProfileWidget(
+                  imagePath: "../assets/user_profile.png",
+                  onClicked: () async {},
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                buildInfo(user.first),
+                buildContent(user.first),
+                buildActivity(user.first),
+              ],
+            ),
+          );
+      }
+  });
   }
 
   // user info display
-  Widget buildInfo(Users users_pref) => Column(
+  Widget buildInfo(Users user) => Column(
         children: [
           Text(
-            users_pref.name,
+            user.name,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 24,
@@ -63,21 +83,21 @@ class _ProfilePageState extends State<ProfilePage> {
             height: 4,
           ),
           Text(
-            users_pref.email,
+            user.email,
             style: TextStyle(color: Colors.black),
           ),
           const SizedBox(
             height: 4,
           ),
           Text(
-            "Total Points: ${users_pref.points}",
+            "Total Points: ${user.points}",
             style: TextStyle(color: Colors.black),
           ),
         ],
       );
 
   // Container with icons & user info
-  Widget buildContent(Users users_pref) => Container(
+  Widget buildContent(Users user) => Container(
         decoration: BoxDecoration(
             color: Color.fromARGB(255, 222, 202, 186),
             border: Border.all(width: 1),
@@ -106,7 +126,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       size: 35, color: Color.fromARGB(255, 228, 218, 218)),
                 ),
                 Text(
-                  '${users_pref.calories}',
+                  '${user.calories}',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const Text('Calories'),
@@ -128,7 +148,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       size: 35, color: Color.fromARGB(255, 228, 218, 218)),
                 ),
                 Text(
-                  '${users_pref.hours}',
+                  '${user.hours}',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const Text('Hours'),
@@ -150,7 +170,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       size: 40, color: Color.fromARGB(255, 228, 218, 218)),
                 ),
                 Text(
-                  '${users_pref.steps}',
+                  '${user.steps}',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const Text('Steps'),
@@ -160,7 +180,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       );
 
-  Widget buildActivity(Users users_pref) => Container(
+  Widget buildActivity(Users user) => Container(
         decoration: BoxDecoration(
             color: Color.fromARGB(255, 222, 202, 186),
             border: Border.all(width: 1),
@@ -192,7 +212,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   width: 24,
                 ),
                 Text(
-                  "${users_pref.date}",
+                  "${user.date}",
                   textAlign: TextAlign.start,
                   style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                 ),
@@ -200,7 +220,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
 
             Text(
-              "${users_pref.last_exercise} . ${users_pref.hours} Hours . ${users_pref.calories} Calories",
+              "${user.last_exercise} . ${user.hours} Hours . ${user.calories} Calories",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 15,
@@ -209,4 +229,21 @@ class _ProfilePageState extends State<ProfilePage> {
           ],
         ),
       );
+
+  
+
+  Future<List> getUser() async {
+    final curr_user = FirebaseAuth.instance.currentUser!.uid;
+    final user_info = FirebaseFirestore.instance.collection("User").where("id", isEqualTo: curr_user).get();
+
+    QuerySnapshot query = await FirebaseFirestore.instance.collection("User").where("id", isEqualTo: curr_user).get();
+
+    final user = query.docs.map((doc)=> Users.fromJson(doc.data() as Map<String, dynamic>)).toList();
+
+    //final allPostings = user_info.docs.map((doc)=> Post.fromJson(doc.data() as Map<String, dynamic>)).toList();
+
+    print(user);
+
+    return user;
+  }
 }

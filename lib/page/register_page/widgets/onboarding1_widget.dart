@@ -194,7 +194,7 @@ class _OnboardingPage1WidgetState extends State<OnboardingPage1Widget> {
     Future createNewUserDetails() async {
       final docPost = FirebaseFirestore.instance.collection('User').doc(FirebaseAuth.instance.currentUser!.uid);
       Users postJson = Users(
-        id: Uuid().v4(),
+        id: FirebaseAuth.instance.currentUser!.uid,
         imagePath: "../../assets/user_profile.png",
         name: "",
         gender: this.gender,
