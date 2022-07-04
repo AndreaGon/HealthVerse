@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_userprofile1/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,15 @@ import 'package:flutter_userprofile1/page/login_page/pages/test_page.dart';
 import 'package:flutter_userprofile1/page/profile_page/profile_page.dart';
 import 'package:flutter_userprofile1/page/profile_page/utils/user_pref.dart';
 import 'package:flutter_userprofile1/page/register_page/onboarding/onboarding1.dart';
+import 'package:flutter_userprofile1/widget/navigation_widget.dart';
+import 'package:uuid/uuid.dart';
+
+import '../../../model/users.dart';
 
 class OnboardingPage1Widget extends StatefulWidget {
+  final String email;
+  const OnboardingPage1Widget({super.key, required this.email});
+
   @override
   _OnboardingPage1WidgetState createState() => _OnboardingPage1WidgetState();
 }
@@ -16,12 +24,14 @@ class OnboardingPage1Widget extends StatefulWidget {
 class _OnboardingPage1WidgetState extends State<OnboardingPage1Widget> {
   final male = "Male";
   final female = "Female";
+  var gender = "";
   final user = UserPreferences.myUser;
-  final age_input = TextEditingController();
-  final weight_input = TextEditingController();
+  var age_input = TextEditingController();
+  var weight_input = TextEditingController();
   bool test = true;
   bool isButtonActive1 = true;
   bool isButtonActive2 = true;
+
 
   //current user login
   final curr_user = FirebaseAuth.instance.currentUser;
@@ -71,7 +81,7 @@ class _OnboardingPage1WidgetState extends State<OnboardingPage1Widget> {
                   onPressed: isButtonActive1
                       ? () {
                           setState(() => isButtonActive2 = false);
-                          //setState(() => );
+                          this.gender = male;
                         }
                       : null,
                 ),
@@ -93,7 +103,7 @@ class _OnboardingPage1WidgetState extends State<OnboardingPage1Widget> {
                   onPressed: isButtonActive2
                       ? () {
                           setState(() => isButtonActive1 = false);
-                          //setState(() => );
+                          this.gender = female;
                         }
                       : null,
                 ),
@@ -171,12 +181,34 @@ class _OnboardingPage1WidgetState extends State<OnboardingPage1Widget> {
                 style: TextStyle(fontSize: 25, color: Colors.black),
               ),
               onPressed: () {
+                createNewUserDetails();
                 //##for navigating to Onboarding 2 Page##
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ProfilePage()));
+                    MaterialPageRoute(builder: (context) => Navigation()));
               },
             ),
           )
         ]),
       );
+
+    Future createNewUserDetails() async {
+      final docPost = FirebaseFirestore.instance.collection('User').doc(FirebaseAuth.instance.currentUser!.uid);
+      Users postJson = Users(
+        id: Uuid().v4(),
+        imagePath: "../../assets/user_profile.png",
+        name: "",
+        gender: this.gender,
+        height: "",
+        weight: weight_input.text,
+        email: '${widget.email}',
+        points: "0",
+        calories: "0",
+        hours: "0",
+        steps: "0",
+        date: "0",
+        last_exercise: "0"
+      );
+      
+      await docPost.set(postJson.toJson());
+    }
 }

@@ -37,6 +37,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: Color.fromARGB(255, 225, 229, 130),
         ),
-        home: Navigation());
+        home: LoginPage());
   }
 }

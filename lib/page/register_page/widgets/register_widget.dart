@@ -6,9 +6,11 @@ import 'package:flutter_userprofile1/main.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter_userprofile1/page/login_page/pages/test_page.dart';
 import 'package:flutter_userprofile1/page/register_page/onboarding/onboarding1.dart';
+import 'package:flutter_userprofile1/widget/navigation_widget.dart';
 
-import '../../../model/user.dart';
+import '../../../model/users.dart';
 import '../../communities/communities.dart';
+import 'package:uuid/uuid.dart';
 
 class RegisterWidget extends StatefulWidget {
   @override
@@ -116,7 +118,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => Onboarding1Page()));
+                          builder: (context) => Onboarding1Page(email: sign_in_emailController.text.trim())));
                 },
               ),
             )
@@ -138,25 +140,5 @@ class _RegisterWidgetState extends State<RegisterWidget> {
     }
   }
 
-  Future createNewUserDetails() async {
-    print("Submtitting form");
-    formKey.currentState?.save();
-
-    final docPost = FirebaseFirestore.instance.collection('User').doc();
   
-    Users postJson = Users(
-      id: "",
-      name: "",
-      email: "",
-      points: "0",
-      calories: "",
-      hours: "0",
-      steps: "",
-      date: "",
-      last_exercise: "0"
-    );
-    
-    await docPost.set(postJson.toJson());
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => Communities()));
-  }
 }

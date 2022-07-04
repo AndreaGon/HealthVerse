@@ -1,6 +1,10 @@
 class Users {
   final String id; 
+  final String imagePath;
   final String name;
+  final String gender;
+  final String height;
+  final String weight;
   final String email;
   final String points;
   final String calories;
@@ -11,7 +15,11 @@ class Users {
 
   const Users({
     required this.id,
+    required this.imagePath,
     required this.name,
+    required this.gender,
+    required this.height,
+    required this.weight,
     required this.email,
     required this.points,
     required this.calories,
@@ -24,7 +32,11 @@ class Users {
   factory Users.fromJson(Map<String, dynamic> parsedJson){
     return Users(
       id: parsedJson['id'].toString(),
+      imagePath: parsedJson['imagePath'].toString(),
       name: parsedJson['name'].toString(),
+      gender: parsedJson['gender'].toString(),
+      height: parsedJson['height'].toString(),
+      weight: parsedJson['weight'].toString(),
       email : parsedJson['email'].toString(),
       points: parsedJson['points'].toString(),
       calories: parsedJson['calories'].toString(),
@@ -37,7 +49,11 @@ class Users {
 
   Map<String, dynamic> toJson() => {
     'id': this.id,
+    'imagePath': this.imagePath,
     'name': this.name,
+    'gender': this.gender,
+    'height': this.height,
+    'weight': this.weight,
     'email': this.email,
     'points': this.points,
     'calories': this.calories,

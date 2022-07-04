@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_userprofile1/model/user.dart';
+import 'package:flutter_userprofile1/model/users.dart';
 
 import 'package:flutter_userprofile1/page/profile_page/utils/user_pref.dart';
 import 'package:flutter_userprofile1/page/profile_page/widget/profile_widget.dart';
@@ -35,7 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           //the image method
           ProfileWidget(
-            imagePath: users_pref.imagePath,
+            imagePath: "../assets/user_profile.png",
             onClicked: () async {},
           ),
           const SizedBox(
