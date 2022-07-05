@@ -1,11 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_userprofile1/main.dart';
-import 'dart:ffi';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_userprofile1/main.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter_userprofile1/page/login_page/pages/test_page.dart';
 import 'package:flutter_userprofile1/page/register_page/onboarding/onboarding1.dart';
+
+import '../../../model/user.dart';
+import '../../communities/communities.dart';
 
 class RegisterWidget extends StatefulWidget {
   @override
@@ -14,6 +17,7 @@ class RegisterWidget extends StatefulWidget {
 
 class _RegisterWidgetState extends State<RegisterWidget> {
   final formkey = GlobalKey<FormState>();
+  final username_Controller = TextEditingController();
   final sign_in_emailController = TextEditingController();
   final sign_in_passwordController = TextEditingController();
   final confirm_passwordController = TextEditingController();
@@ -21,6 +25,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   get icon => null;
   @override
   void dispose() {
+    username_Controller.dispose();
     sign_in_emailController.dispose();
     sign_in_passwordController.dispose();
     confirm_passwordController.dispose();
@@ -36,6 +41,27 @@ class _RegisterWidgetState extends State<RegisterWidget> {
             Row(),
             SizedBox(
               height: 50,
+            ),
+            Text(
+              "Enter Your Name",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 50,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
+            ),
+            SizedBox(height: 20),
+            //Container for Confirm Email
+            SizedBox(
+              width: 400,
+              child: TextFormField(
+                controller: username_Controller,
+                cursorColor: Colors.black,
+                textInputAction: TextInputAction.next,
+                decoration: InputDecoration(
+                    labelText: 'Email', border: OutlineInputBorder()),
+                obscureText: false,
+              ),
             ),
             Text(
               "Create Your Account",
@@ -132,5 +158,27 @@ class _RegisterWidgetState extends State<RegisterWidget> {
     } on FirebaseAuthException catch (e) {
       print(e);
     }
+  }
+
+  Future createNewUserDetails() async {
+    print("Submtitting form");
+    formkey.currentState?.save();
+
+    final docPost = FirebaseFirestore.instance.collection('User').doc();
+
+    Users postJson = Users(
+        id: "",
+        name: "",
+        email: "",
+        points: "0",
+        calories: "",
+        hours: "0",
+        steps: "",
+        date: "",
+        last_exercise: "0");
+
+    await docPost.set(postJson.toJson());
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => Communities()));
   }
 }

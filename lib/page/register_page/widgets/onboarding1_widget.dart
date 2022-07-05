@@ -20,6 +20,7 @@ class _OnboardingPage1WidgetState extends State<OnboardingPage1Widget> {
   final user = UserPreferences.myUser;
   final age_input = TextEditingController();
   final weight_input = TextEditingController();
+  final height_input = TextEditingController();
   bool test = true;
   bool isButtonActive1 = true;
   bool isButtonActive2 = true;
@@ -32,6 +33,7 @@ class _OnboardingPage1WidgetState extends State<OnboardingPage1Widget> {
   void dispose() {
     age_input.dispose();
     weight_input.dispose();
+    height_input.dispose();
     super.dispose();
   }
 
@@ -147,9 +149,30 @@ class _OnboardingPage1WidgetState extends State<OnboardingPage1Widget> {
               //obscureText: true,
             ),
           ),
+          Text(
+            "What is Your Height (in ft)?",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Container(
+            decoration:
+                BoxDecoration(color: Color.fromARGB(255, 196, 190, 190)),
+            child: TextField(
+              controller: height_input,
+              cursorColor: Colors.black,
+              textInputAction: TextInputAction.next,
+              decoration: InputDecoration(border: OutlineInputBorder()),
+              //obscureText: true,
+            ),
+          ),
           SizedBox(
             height: 120,
           ),
+          //finish button
           Container(
             height: 50,
             width: 400,

@@ -34,7 +34,8 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           //the image method
           ProfileWidget(
-            imagePath: users_pref.imagePath,
+            imagePath:
+                "https://www.looper.com/img/gallery/things-only-adults-notice-in-shrek/intro-1573597941.jpg",
             onClicked: () async {},
           ),
           const SizedBox(
