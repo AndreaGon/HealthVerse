@@ -6,7 +6,6 @@ import 'package:flutter_userprofile1/main.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter_userprofile1/page/login_page/pages/test_page.dart';
 import 'package:flutter_userprofile1/page/profile_page/profile_page.dart';
-import 'package:flutter_userprofile1/page/profile_page/utils/user_pref.dart';
 import 'package:flutter_userprofile1/page/register_page/onboarding/onboarding1.dart';
 import 'package:flutter_userprofile1/widget/navigation_widget.dart';
 import 'package:uuid/uuid.dart';
@@ -25,9 +24,9 @@ class _OnboardingPage1WidgetState extends State<OnboardingPage1Widget> {
   final male = "Male";
   final female = "Female";
   var gender = "";
-  final user = UserPreferences.myUser;
-  var age_input = TextEditingController();
-  var weight_input = TextEditingController();
+  final age_input = TextEditingController();
+  final weight_input = TextEditingController();
+  final height_input = TextEditingController();
   bool test = true;
   bool isButtonActive1 = true;
   bool isButtonActive2 = true;
@@ -41,6 +40,7 @@ class _OnboardingPage1WidgetState extends State<OnboardingPage1Widget> {
   void dispose() {
     age_input.dispose();
     weight_input.dispose();
+    height_input.dispose();
     super.dispose();
   }
 
@@ -156,9 +156,30 @@ class _OnboardingPage1WidgetState extends State<OnboardingPage1Widget> {
               //obscureText: true,
             ),
           ),
+          Text(
+            "What is Your Height (in ft)?",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Container(
+            decoration:
+                BoxDecoration(color: Color.fromARGB(255, 196, 190, 190)),
+            child: TextField(
+              controller: height_input,
+              cursorColor: Colors.black,
+              textInputAction: TextInputAction.next,
+              decoration: InputDecoration(border: OutlineInputBorder()),
+              //obscureText: true,
+            ),
+          ),
           SizedBox(
             height: 120,
           ),
+          //finish button
           Container(
             height: 50,
             width: 400,
@@ -198,7 +219,7 @@ class _OnboardingPage1WidgetState extends State<OnboardingPage1Widget> {
         imagePath: "../../assets/user_profile.png",
         name: "",
         gender: this.gender,
-        height: "",
+        height: height_input.text,
         weight: weight_input.text,
         email: '${widget.email}',
         points: "0",

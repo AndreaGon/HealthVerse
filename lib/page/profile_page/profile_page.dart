@@ -3,13 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_userprofile1/model/users.dart';
 
-import 'package:flutter_userprofile1/page/profile_page/utils/user_pref.dart';
 import 'package:flutter_userprofile1/page/profile_page/widget/profile_widget.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../model/post.dart';
 import '../../widget/appbar_widget.dart';
-import 'utils/user_pref.dart';
 import 'widget/profile_widget.dart';
 
 

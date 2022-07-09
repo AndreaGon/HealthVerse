@@ -12,6 +12,9 @@ import '../../../model/users.dart';
 import '../../communities/communities.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../model/users.dart';
+import '../../communities/communities.dart';
+
 class RegisterWidget extends StatefulWidget {
   @override
   _RegisterWidgetState createState() => _RegisterWidgetState();
@@ -19,6 +22,7 @@ class RegisterWidget extends StatefulWidget {
 
 class _RegisterWidgetState extends State<RegisterWidget> {
   final formkey = GlobalKey<FormState>();
+  final username_Controller = TextEditingController();
   final sign_in_emailController = TextEditingController();
   final sign_in_passwordController = TextEditingController();
   final confirm_passwordController = TextEditingController();
@@ -26,6 +30,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   get icon => null;
   @override
   void dispose() {
+    username_Controller.dispose();
     sign_in_emailController.dispose();
     sign_in_passwordController.dispose();
     confirm_passwordController.dispose();
@@ -41,6 +46,27 @@ class _RegisterWidgetState extends State<RegisterWidget> {
             Row(),
             SizedBox(
               height: 50,
+            ),
+            Text(
+              "Enter Your Name",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 50,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
+            ),
+            SizedBox(height: 20),
+            //Container for Confirm Email
+            SizedBox(
+              width: 400,
+              child: TextFormField(
+                controller: username_Controller,
+                cursorColor: Colors.black,
+                textInputAction: TextInputAction.next,
+                decoration: InputDecoration(
+                    labelText: 'Email', border: OutlineInputBorder()),
+                obscureText: false,
+              ),
             ),
             Text(
               "Create Your Account",

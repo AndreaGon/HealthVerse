@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_userprofile1/widget/appbar_widget.dart';
 
 import '../login_page/pages/login_page.dart';
-import '../profile_page/utils/user_pref.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -13,7 +12,6 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
-    final user = UserPreferences.myUser;
     //current user login
     final curr_user = FirebaseAuth.instance.currentUser!;
 
