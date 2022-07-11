@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_userprofile1/model/admin.dart';
 import 'package:flutter_userprofile1/model/users.dart';
 
 import 'package:flutter_userprofile1/page/profile_page/widget/profile_widget.dart';
@@ -18,14 +19,18 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   List user = [];
+  List adminNotif = [];
 
   @override
   Widget build(BuildContext context) {
 
     getUser();
-
+    getAdminNotif();
     return FutureBuilder<List>(
-      future: getUser(),
+      future: Future.wait([
+        getUser(),
+        getAdminNotif()
+      ]),
       builder: (BuildContext context, AsyncSnapshot<List> snapshot){
         if( snapshot.connectionState == ConnectionState.waiting){
           return  Scaffold(
@@ -37,7 +42,8 @@ class _ProfilePageState extends State<ProfilePage> {
           );
         }
         else{
-          user = snapshot.data!;
+          user = snapshot.data![0];
+          adminNotif = snapshot.data![1];
           return Scaffold(
       //top bar
             appBar: buildAppBar(context, "Profile Page"),
@@ -60,6 +66,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 buildInfo(user.first),
                 buildContent(user.first),
                 buildActivity(user.first),
+                buildAdminNotif(adminNotif.first)
               ],
             ),
           );
@@ -228,11 +235,51 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       );
 
+  Widget buildAdminNotif(Admin admin) => Container(
+        decoration: BoxDecoration(
+            color: Color.fromARGB(255, 222, 202, 186),
+            border: Border.all(width: 1),
+            borderRadius: BorderRadius.all(
+              Radius.circular(20),
+            )),
+        padding: const EdgeInsets.all(20),
+        margin: EdgeInsets.all(20),
+        child: Column(
+          children: [
+            //Displaying the Last Activity Text
+            Align(
+              alignment: Alignment(-1, -1),
+              child: Text("Health Tips",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            //Aligning the Icon & Latest Exercise
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Icon(
+                  Icons.circle,
+                  size: 10,
+                ),
+                const SizedBox(
+                  width: 24,
+                ),
+                Text(
+                  "${admin.notif_content}",
+                  textAlign: TextAlign.start,
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
   
 
   Future<List> getUser() async {
     final curr_user = FirebaseAuth.instance.currentUser!.uid;
-    final user_info = FirebaseFirestore.instance.collection("User").where("id", isEqualTo: curr_user).get();
 
     QuerySnapshot query = await FirebaseFirestore.instance.collection("User").where("id", isEqualTo: curr_user).get();
 
@@ -243,5 +290,12 @@ class _ProfilePageState extends State<ProfilePage> {
     print(user);
 
     return user;
+  }
+
+  Future<List> getAdminNotif() async{
+    QuerySnapshot query = await FirebaseFirestore.instance.collection("Admin_notif").orderBy("timestamp", descending: true).limit(1).get();
+    final admin = query.docs.map((doc)=> Admin.fromJson(doc.data() as Map<String, dynamic>)).toList();
+
+    return admin;
   }
 }
