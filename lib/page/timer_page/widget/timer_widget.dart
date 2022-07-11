@@ -7,7 +7,11 @@ class AddTimeValue extends StatelessWidget {
   final int value;
 
   const AddTimeValue(
-      {super.key, required this.time, required this.min, required this.value});
+      {super.key,
+      required this.time,
+      required this.min,
+      required this.value,
+      required Null Function() onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +25,8 @@ class AddTimeValue extends StatelessWidget {
                 border: Border.all(
               color: Color.fromARGB(255, 153, 155, 132),
             )),
-            child: Text(time, style: TextStyle(color: Colors.black))),
+            child: Text(time,
+                style: TextStyle(color: Color.fromARGB(255, 255, 252, 252)))),
       ),
       SizedBox(
         height: 5,
