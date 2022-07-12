@@ -285,8 +285,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
     final user = query.docs.map((doc)=> Users.fromJson(doc.data() as Map<String, dynamic>)).toList();
 
-    //final allPostings = user_info.docs.map((doc)=> Post.fromJson(doc.data() as Map<String, dynamic>)).toList();
-
     print(user);
 
     return user;
