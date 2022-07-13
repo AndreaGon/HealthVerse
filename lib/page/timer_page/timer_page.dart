@@ -18,7 +18,7 @@ class _TimerPageState extends State<TimerPage> {
   @override
   Widget build(BuildContext) {
     return Scaffold(
-        appBar: buildAppBar(context, "Goals"),
+        appBar: buildAppBar(context, "Daily Exercise Goals"),
         backgroundColor: Color.fromARGB(255, 244, 238, 237),
         body: Column(
             children: [Row(
@@ -114,6 +114,7 @@ class _TimerPageState extends State<TimerPage> {
               onComplete: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => SuccessPage(timeDuration: duration)));
+                duration = 0;
               },);
   }
 

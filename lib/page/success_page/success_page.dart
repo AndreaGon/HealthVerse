@@ -102,9 +102,9 @@ class _SuccessPageState extends State<SuccessPage> {
         QuerySnapshot query = await FirebaseFirestore.instance.collection("User").where("id", isEqualTo: curr_user).get();
 
         final user = query.docs.map((doc)=> Users.fromJson(doc.data() as Map<String, dynamic>)).toList();
-        points = (int.parse(user.first.points) + 5).toString();
-        caloriesBurned = ((widget.timeDuration / 60) * (5 * 3.5 * int.parse(user.first.weight))/200).toString();
-        hoursExercised = (int.parse(user.first.hours) + (widget.timeDuration) / 3600).toString();
+        points = (double.parse(user.first.points) + 5).toStringAsFixed(3);
+        caloriesBurned = ((widget.timeDuration / 60) * (5 * 3.5 * int.parse(user.first.weight))/200).toStringAsFixed(3);
+        hoursExercised = (double.parse(user.first.hours) + (widget.timeDuration) / 3600).toStringAsFixed(3);
         FirebaseFirestore.instance.collection("User").doc(curr_user).update({"points": (points), "last_exercise": DateTime.now(), "calories": caloriesBurned, "hours": hoursExercised});
       }
 }

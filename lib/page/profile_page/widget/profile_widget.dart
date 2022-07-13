@@ -38,7 +38,7 @@ class ProfileWidget extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: Ink.image(
-          image: image,
+          image: AssetImage('assets/images/user_profile.png'),
           fit: BoxFit.cover,
           width: 128,
           height: 128,
