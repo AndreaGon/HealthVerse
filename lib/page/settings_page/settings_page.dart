@@ -1,8 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_userprofile1/widget/appbar_widget.dart';
 
 import '../login_page/pages/login_page.dart';
-import '../profile_page/utils/user_pref.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -12,7 +12,8 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
-    final user = UserPreferences.myUser;
+    //current user login
+    final curr_user = FirebaseAuth.instance.currentUser!;
 
     return Scaffold(
       //top bar
@@ -36,31 +37,28 @@ class _SettingsPageState extends State<SettingsPage> {
             padding: const EdgeInsets.all(10),
             margin: EdgeInsets.all(10),
             child: TextButton(
-              style: TextButton.styleFrom(
-                primary: Colors.black,
-              ),
-              child: Text(
-                'Logout',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
-              ),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginPage()));
-              },
-            ),
+                style: TextButton.styleFrom(
+                  primary: Colors.black,
+                ),
+                child: Text(
+                  'Logout',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                ),
+                onPressed: () {
+                  //signout and go to login page
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushReplacementNamed('/');
+                  FirebaseAuth.instance.signOut();
+                }
+                //=> FirebaseAuth.instance.signOut(),
+                // Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) => LoginPage()));
+                ),
           ),
-          // Text(
-          //   "Here1",
-          //   textAlign: TextAlign.center,
-          // ),
           SizedBox(
             height: 100,
           ),
-          // Text(
-          //   "Here2",
-          //   textAlign: TextAlign.center,
-          // ),
           Container(
             constraints: BoxConstraints(maxHeight: double.infinity),
             decoration: BoxDecoration(

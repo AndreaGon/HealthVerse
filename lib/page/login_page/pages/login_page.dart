@@ -1,4 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_userprofile1/model/users.dart';
+import 'package:flutter_userprofile1/page/login_page/pages/test_page.dart';
+import 'package:flutter_userprofile1/page/login_page/widget/login_widget.dart';
+import 'package:flutter_userprofile1/page/profile_page/profile_page.dart';
+import 'package:flutter_userprofile1/widget/navigation_widget.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -7,31 +14,29 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   @override
-  Widget build(BuildContext context) {
-    //final user = UserPreferences.myUser;
+  Widget build(BuildContext context) => Scaffold(
+      //final user = UserPreferences.myUser;
 
-    return Scaffold(
       //top bar
       backgroundColor: Color.fromARGB(255, 83, 113, 135),
       //list view # maybe edit this to change the look
-      body: ListView(
-        physics: BouncingScrollPhysics(),
-        children: [
-          SizedBox(
-            height: 100,
-            child: DecoratedBox(
-                decoration: BoxDecoration(
-              color: Colors.red,
-            )),
-          ),
-          Text(
-            "HealthVerse",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 60, fontWeight: FontWeight.bold, color: Colors.white),
-          ),
-        ],
-      ),
-    );
-  }
+      body: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            final user = snapshot.data;
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasError) {
+              return Center(
+                child: Text("Something went wrong!"),
+              );
+            }
+            if (snapshot.hasData) {
+              return Navigation();
+            } else {
+              return LoginWidget();
+            }
+          }));
 }

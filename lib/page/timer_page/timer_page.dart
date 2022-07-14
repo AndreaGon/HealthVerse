@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_userprofile1/page/timer_page/widget/timer_widget.dart';
+import 'package:flutter_userprofile1/widget/appbar_widget.dart';
 
 class TimerPage extends StatefulWidget {
   @override
@@ -19,6 +20,7 @@ class _TimerPageState extends State<TimerPage> {
   @override
   Widget build(BuildContext) {
     return Scaffold(
+        appBar: buildAppBar(context, "Goals"),
         backgroundColor: Color.fromARGB(255, 244, 238, 237),
         body: Container(
             padding: EdgeInsets.all(30),
