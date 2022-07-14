@@ -23,8 +23,8 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
-        padding: EdgeInsets.all(16),
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        child: Align(alignment: Alignment.center, 
+        child: Column(children: [
           SizedBox(
             height: 150,
           ),
@@ -149,7 +149,7 @@ class _LoginWidgetState extends State<LoginWidget> {
               },
             ),
           )
-        ]),
+        ]),) 
       );
 
   Future signIn() async {

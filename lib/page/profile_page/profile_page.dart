@@ -217,19 +217,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   width: 24,
                 ),
                 Text(
-                  "${user.date}",
+                  "Total calories burned as of today: ${user.calories}",
                   textAlign: TextAlign.start,
                   style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                 ),
               ],
-            ),
-
-            Text(
-              "${user.last_exercise} . ${user.hours} Hours . ${user.calories} Calories",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 15,
-              ),
             ),
           ],
         ),
@@ -284,8 +276,6 @@ class _ProfilePageState extends State<ProfilePage> {
     QuerySnapshot query = await FirebaseFirestore.instance.collection("User").where("id", isEqualTo: curr_user).get();
 
     final user = query.docs.map((doc)=> Users.fromJson(doc.data() as Map<String, dynamic>)).toList();
-
-    //final allPostings = user_info.docs.map((doc)=> Post.fromJson(doc.data() as Map<String, dynamic>)).toList();
 
     print(user);
 
