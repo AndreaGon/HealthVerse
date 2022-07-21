@@ -1,4 +1,6 @@
+import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_userprofile1/page/success_page/success_page.dart';
 import 'package:flutter_userprofile1/page/timer_page/widget/timer_widget.dart';
 import 'package:flutter_userprofile1/widget/appbar_widget.dart';
 
@@ -8,122 +10,144 @@ class TimerPage extends StatefulWidget {
 }
 
 class _TimerPageState extends State<TimerPage> {
-  bool isVisible = true;
-  bool isNotVisible =false;
-  String timeValue = '00:00:00';
+  int duration = 0;
+  bool isStopped = false;
+  final CountDownController controller = CountDownController();
   
   
   @override
   Widget build(BuildContext) {
     return Scaffold(
-        appBar: buildAppBar(context, "Goals"),
+        appBar: buildAppBar(context, "Daily Exercise Goals"),
         backgroundColor: Color.fromARGB(255, 244, 238, 237),
-        body: Container(
-            child: Column(children: [
-          Container(
-              margin: EdgeInsets.only(top: 30),
-              alignment: Alignment.center,
-              height: MediaQuery.of(context).size.height / 2,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Color.fromARGB(255, 153, 155, 132),
-                    width: 2,
-                  )),
-              child: Text(timeValue,style: TextStyle(
-                      fontSize: 50,
-                      color: Color.fromARGB(255, 153, 155, 132)))),
-          Container(
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: AddTimeValue(
-                    time: '+10', 
-                    min: 'min', 
-                    value: 10
-                  ,),
-
+        body: Column(
+            children: [Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Align(
+                  alignment: Alignment.topCenter, child: buildTimer(context),
                 ),
-                AddTimeValue(
-                  time: '+5', 
-                  min: 'min', 
-                  value: 5,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: AddTimeValue(
-                  time: '+15', 
-                  min: 'sec',                   
-                  value: 15,
-                ),
-            )])),
-          Divider(
-            color: Colors.black,
-            thickness: 3,
-          ),
-          Container(alignment: Alignment.center,
-              child: Stack(
+                
+              ],  
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-            Visibility(
-              visible: isVisible,
-              maintainSize: true, 
-              maintainState: true,
-              maintainAnimation: true,
-
-              child: Center(
-                child: FlatButton(
-                    onPressed: (){
-                      setState(( ){
-                        isVisible = !isVisible;
-                        isNotVisible = !isNotVisible;
-                      });
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  timerButtons(
+                    title: "Add 10 min",
+                    onPressed: () => {
+                      duration += 600,
+                      controller.restart(duration: duration),
+                      controller.pause()
                     },
-                    
-                    
-                    child: Text('Start',
-                        style: TextStyle(color: Colors.black, fontSize: 20))),
-              ),
-            ),
-            Visibility(
-              maintainSize: true, 
-              maintainState: true,
-              maintainAnimation: true,
-              visible: isNotVisible,
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [FlatButton(
-                     onPressed: (){
-                      setState(( ){
-                        isVisible = !isVisible;
-                        isNotVisible = !isNotVisible;
-                      });
-                      timeValue = '00:00:00';
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  timerButtons(
+                    title: "Add 5 min",
+                    onPressed: () => {
+                      duration += 300,
+                      controller.restart(duration: duration),
+                      controller.pause()
                     },
-                    child: Text('Stop',
-                        style: TextStyle(color: Colors.black, fontSize: 20))),
-            
-                   Row(
-                    
-                     children: [FlatButton(
-                       onPressed: (){},
-                       child: Text('Reset',
-                           style: TextStyle(color: Colors.black, fontSize: 20)))
-                     
-                     ],
-            
-                     
-            
-                   )
-                      ]),
-              ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),  
+              ])
+              ],),
+          floatingActionButton: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  width: 30,
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                timerButtons(
+                  title: "Start",
+                  onPressed: () => controller.restart(duration: duration),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                timerButtons(
+                  title: "Pause",
+                  onPressed: () => controller.pause(),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                timerButtons(
+                  title: "Resume",
+                  onPressed: () => controller.resume(),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+              ],
             ),
-        ]))
-        ])));
+          );
+        
   }
+
+  Widget buildTimer(BuildContext context){
+    return CircularCountDownTimer(
+              duration: duration,
+              controller: controller,
+              fillColor: Color.fromARGB(255, 153, 155, 132), 
+              height: MediaQuery.of(context).size.height / 2, 
+              ringColor: Color.fromARGB(255, 243, 253, 134), 
+              width: MediaQuery.of(context).size.width / 2,
+              isReverse: true,
+              isReverseAnimation: true,
+              isTimerTextShown: true,
+              autoStart: false,
+              textStyle: TextStyle(
+              fontSize: 33.0, color: Color.fromARGB(255, 153, 155, 132), fontWeight: FontWeight.bold),
+              textFormat: CountdownTextFormat.HH_MM_SS,
+              onComplete: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SuccessPage(timeDuration: duration)));
+                duration = 0;
+              },);
+  }
+
+  Widget addTimerValueButtons({required String title, VoidCallback? onPressed}) {
+    return Expanded(
+      child: ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(Color.fromARGB(116, 115, 150, 74)),
+        ),
+        onPressed: onPressed,
+        child: Text(
+          title,
+          style: const TextStyle(color: Colors.white),
+        ),
+      ),
+    );
+  }
+
+  Widget timerButtons({required String title, VoidCallback? onPressed}) {
+    return Expanded(
+      child: ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(Color.fromARGB(116, 115, 150, 74)),
+        ),
+        onPressed: onPressed,
+        child: Text(
+          title,
+          style: const TextStyle(color: Colors.white),
+        ),
+      ),
+    );
+  }
+
 }
 
 
