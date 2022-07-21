@@ -1,8 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_userprofile1/model/user.dart';
-import 'package:flutter_userprofile1/page/profile_page/utils/user_pref.dart';
-import 'package:flutter_userprofile1/widget/appbar_widget.dart';
-import 'package:flutter_userprofile1/page/profile_page/widgets/profile_widget.dart';
+import 'package:flutter_userprofile1/model/admin.dart';
+import 'package:flutter_userprofile1/model/users.dart';
+
+import 'package:flutter_userprofile1/page/profile_page/widget/profile_widget.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+
+import '../../model/post.dart';
+import '../../widget/appbar_widget.dart';
+import 'widget/profile_widget.dart';
+
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -10,39 +18,64 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  List user = [];
+  List adminNotif = [];
+
   @override
   Widget build(BuildContext context) {
-    final user = UserPreferences.myUser;
 
-    return Scaffold(
+    getUser();
+    getAdminNotif();
+    return FutureBuilder<List>(
+      future: Future.wait([
+        getUser(),
+        getAdminNotif()
+      ]),
+      builder: (BuildContext context, AsyncSnapshot<List> snapshot){
+        if( snapshot.connectionState == ConnectionState.waiting){
+          return  Scaffold(
+            body: Center(
+              child: LoadingAnimationWidget.staggeredDotsWave(
+                color: Colors.purple, size: 200
+              )
+            )
+          );
+        }
+        else{
+          user = snapshot.data![0];
+          adminNotif = snapshot.data![1];
+          return Scaffold(
       //top bar
-      appBar: buildAppBar(context, "User Profile"),
-      backgroundColor: Color.fromRGBO(156, 180, 171, 1),
-      //list view # maybe edit this to change the look
-      body: ListView(
-        physics: BouncingScrollPhysics(),
-        children: [
-          const SizedBox(
-            height: 10,
-          ),
-          //the image method
-          ProfileWidget(
-            imagePath: user.imagePath,
-            onClicked: () async {},
-          ),
-          const SizedBox(
-            height: 24,
-          ),
-          buildInfo(user),
-          buildContent(user),
-          buildActivity(user),
-        ],
-      ),
-    );
+            appBar: buildAppBar(context, "Profile Page"),
+            backgroundColor: Color.fromARGB(255, 228, 218, 218),
+            //list view # maybe edit this to change the look
+            body: ListView(
+              physics: BouncingScrollPhysics(),
+              children: [
+                const SizedBox(
+                  height: 10,
+                ),
+                //the image method
+                ProfileWidget(
+                  imagePath: "../assets/user_profile.png",
+                  onClicked: () async {},
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                buildInfo(user.first),
+                buildContent(user.first),
+                buildActivity(user.first),
+                buildAdminNotif(adminNotif.first)
+              ],
+            ),
+          );
+      }
+  });
   }
 
   // user info display
-  Widget buildInfo(User user) => Column(
+  Widget buildInfo(Users user) => Column(
         children: [
           Text(
             user.name,
@@ -69,9 +102,9 @@ class _ProfilePageState extends State<ProfilePage> {
       );
 
   // Container with icons & user info
-  Widget buildContent(User user) => Container(
+  Widget buildContent(Users user) => Container(
         decoration: BoxDecoration(
-            color: Colors.lightBlue[100],
+            color: Color.fromARGB(255, 222, 202, 186),
             border: Border.all(width: 1),
             borderRadius: BorderRadius.all(
               Radius.circular(20),
@@ -95,7 +128,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   padding: const EdgeInsets.all(10),
                   margin: EdgeInsets.all(10),
                   child: Icon(Icons.local_fire_department_sharp,
-                      size: 35, color: Colors.lightBlue[100]),
+                      size: 35, color: Color.fromARGB(255, 228, 218, 218)),
                 ),
                 Text(
                   '${user.calories}',
@@ -116,8 +149,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       )),
                   padding: const EdgeInsets.all(10),
                   margin: EdgeInsets.all(10),
-                  child:
-                      Icon(Icons.timer, size: 35, color: Colors.lightBlue[100]),
+                  child: Icon(Icons.timer,
+                      size: 35, color: Color.fromARGB(255, 228, 218, 218)),
                 ),
                 Text(
                   '${user.hours}',
@@ -139,7 +172,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   padding: const EdgeInsets.all(10),
                   margin: EdgeInsets.all(10),
                   child: Icon(Icons.directions_walk,
-                      size: 40, color: Colors.lightBlue[100]),
+                      size: 40, color: Color.fromARGB(255, 228, 218, 218)),
                 ),
                 Text(
                   '${user.steps}',
@@ -152,9 +185,9 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       );
 
-  Widget buildActivity(User user) => Container(
+  Widget buildActivity(Users user) => Container(
         decoration: BoxDecoration(
-            color: Color.fromARGB(255, 108, 172, 223),
+            color: Color.fromARGB(255, 222, 202, 186),
             border: Border.all(width: 1),
             borderRadius: BorderRadius.all(
               Radius.circular(20),
@@ -184,21 +217,75 @@ class _ProfilePageState extends State<ProfilePage> {
                   width: 24,
                 ),
                 Text(
-                  "${user.date}",
+                  "Total calories burned as of today: ${user.calories}",
                   textAlign: TextAlign.start,
                   style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
+          ],
+        ),
+      );
 
-            Text(
-              "${user.last_exercise} . ${user.hours} Hours . ${user.calories} Calories",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 15,
-              ),
+  Widget buildAdminNotif(Admin admin) => Container(
+        decoration: BoxDecoration(
+            color: Color.fromARGB(255, 222, 202, 186),
+            border: Border.all(width: 1),
+            borderRadius: BorderRadius.all(
+              Radius.circular(20),
+            )),
+        padding: const EdgeInsets.all(20),
+        margin: EdgeInsets.all(20),
+        child: Column(
+          children: [
+            //Displaying the Last Activity Text
+            Align(
+              alignment: Alignment(-1, -1),
+              child: Text("Health Tips",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            //Aligning the Icon & Latest Exercise
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Icon(
+                  Icons.circle,
+                  size: 10,
+                ),
+                const SizedBox(
+                  width: 24,
+                ),
+                Text(
+                  "${admin.notif_content}",
+                  textAlign: TextAlign.start,
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
           ],
         ),
       );
+  
+
+  Future<List> getUser() async {
+    final curr_user = FirebaseAuth.instance.currentUser!.uid;
+
+    QuerySnapshot query = await FirebaseFirestore.instance.collection("User").where("id", isEqualTo: curr_user).get();
+
+    final user = query.docs.map((doc)=> Users.fromJson(doc.data() as Map<String, dynamic>)).toList();
+
+    print(user);
+
+    return user;
+  }
+
+  Future<List> getAdminNotif() async{
+    QuerySnapshot query = await FirebaseFirestore.instance.collection("Admin_notif").orderBy("timestamp", descending: true).limit(1).get();
+    final admin = query.docs.map((doc)=> Admin.fromJson(doc.data() as Map<String, dynamic>)).toList();
+
+    return admin;
+  }
 }

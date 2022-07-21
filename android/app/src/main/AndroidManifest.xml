@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.flutter_userprofile1">
+    package="com.example.healthverse">
    <application
-        android:label="flutter_userprofile1"
+        android:label="healthverse"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

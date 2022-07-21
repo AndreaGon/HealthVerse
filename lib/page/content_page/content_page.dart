@@ -1,7 +1,13 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_userprofile1/page/communities/communities.dart';
 
+import '../../model/post.dart';
 import '../../widget/appbar_widget.dart';
+import '../../widget/navigation_widget.dart';
 
 class ContentPage extends StatefulWidget {
   @override
@@ -10,6 +16,9 @@ class ContentPage extends StatefulWidget {
 }
 
 class _ContentPageState extends State<ContentPage>{
+  final formKey = GlobalKey<FormState>();
+  final Map<String, dynamic> postData = { 'text': "" };
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +26,10 @@ class _ContentPageState extends State<ContentPage>{
       backgroundColor: Color(0xF4EEED),
       bottomNavigationBar: buildPostButton(context),
       body: SafeArea(
-        child: buildTextArea(context),
+        child: Form(
+          key: formKey,
+          child: buildTextArea(context),
+        ),
       ) 
      );
 
@@ -32,9 +44,12 @@ class _ContentPageState extends State<ContentPage>{
             margin: EdgeInsets.all(16.0),
             child: Padding(
               padding: EdgeInsets.all(16.0),
-              child: TextField(
+              child: TextFormField(
                 maxLines: 20, //or null 
                 decoration: InputDecoration.collapsed(hintText: "Post your exercise achievements!"),
+                onSaved: (String ?value) {
+                  postData['text'] = value;
+                },
               ),
             )
           )
@@ -48,7 +63,7 @@ class _ContentPageState extends State<ContentPage>{
       color: Colors.purple,
       child: InkWell(
           onTap: () {
-            //print('called on tap');
+            createNewPost();
           },
           child: const SizedBox(
             height: kToolbarHeight,
@@ -65,5 +80,22 @@ class _ContentPageState extends State<ContentPage>{
           )
         ),
     );
+  }
+
+  Future createNewPost() async {
+    print("Submtitting form");
+    formKey.currentState?.save();
+
+    final docPost = FirebaseFirestore.instance.collection('Postings').doc();
+  
+    Post postJson = Post(
+      comments_number: "0",
+      likes_number: "0",
+      text: postData['text'],
+      userId: "0"
+    );
+    
+    await docPost.set(postJson.toJson());
+    Navigator.of(context).pop();
   }
 }

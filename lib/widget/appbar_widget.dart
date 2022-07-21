@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_userprofile1/page/settings_page/settings_page.dart';
 
 AppBar buildAppBar(BuildContext context, String title) {
   final icon = CupertinoIcons.settings;
@@ -18,7 +19,10 @@ AppBar buildAppBar(BuildContext context, String title) {
       IconButton(
         icon: Icon(icon),
         color: Colors.white,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => SettingsPage()));
+        },
       ),
     ],
   );
