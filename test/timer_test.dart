@@ -16,11 +16,10 @@ import 'package:flutter_userprofile1/page/timer_page/timer_page.dart';
 void main() async {
   Widget testTimer = new MediaQuery(
       data: new MediaQueryData(),
-      child: new MaterialApp(home: new TimerPage())
-  );
+      child: new MaterialApp(home: new TimerPage()));
 
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
 
   testWidgets('Timer should add 5 minutes', (WidgetTester tester) async {
     // Build our app and trigger a frame.
