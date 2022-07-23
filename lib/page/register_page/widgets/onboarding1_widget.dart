@@ -7,7 +7,8 @@ import '../../../model/users.dart';
 
 class OnboardingPage1Widget extends StatefulWidget {
   final String email;
-  const OnboardingPage1Widget({super.key, required this.email});
+  final String name;
+  const OnboardingPage1Widget({super.key, required this.email, required this.name});
 
   @override
   _OnboardingPage1WidgetState createState() => _OnboardingPage1WidgetState();
@@ -210,7 +211,7 @@ class _OnboardingPage1WidgetState extends State<OnboardingPage1Widget> {
       Users postJson = Users(
         id: FirebaseAuth.instance.currentUser!.uid,
         imagePath: '../../assets/user_profile.png',
-        name: '',
+        name: widget.name,
         gender: gender,
         height: height_input.text,
         weight: weight_input.text,

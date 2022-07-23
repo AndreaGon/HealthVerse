@@ -54,7 +54,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 cursorColor: Colors.black,
                 textInputAction: TextInputAction.next,
                 decoration: const InputDecoration(
-                    labelText: 'Email', border: OutlineInputBorder()),
+                    labelText: 'Name', border: OutlineInputBorder()),
                 obscureText: false,
               ),
             ),
@@ -134,7 +134,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => Onboarding1Page(email: sign_in_emailController.text.trim())));
+                          builder: (context) => Onboarding1Page(email: sign_in_emailController.text.trim(), name: username_Controller.text.trim())));
                 },
               ),
             )
