@@ -41,6 +41,7 @@ dependencies:
   email_validator: ^2.0.1
   uuid: ^3.0.6
   circular_countdown_timer: ^0.2.1
+  bdd_widget_test: ^1.4.2
 
 dev_dependencies:
   flutter_test:
@@ -65,6 +66,11 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
+<<<<<<< HEAD
+=======
+  #   - images/a_dot_burr.jpeg
+  #   - images/a_dot_ham.jpeg
+>>>>>>> 96aa69ce8ddf2087db6eeab2ae486231c9130ce7
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

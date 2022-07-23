@@ -6,45 +6,45 @@ class TestPage extends StatelessWidget {
   Widget build(BuildContext context) {
     @override
         //current user login
-        final curr_user = FirebaseAuth.instance.currentUser!;
+        final currUser = FirebaseAuth.instance.currentUser!;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Test"),
+        title: const Text('Test'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(22),
+        padding: const EdgeInsets.all(22),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              "Sign In As",
+            const Text(
+              'Sign In As',
               style: TextStyle(fontSize: 12),
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             Text(
-              curr_user.email!,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              currUser.email!,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(
+                  primary: const Color.fromARGB(
                       255, 93, 169, 138), //background color of button
 
                   elevation: 3, //elevation of button
                   shape: RoundedRectangleBorder(
                       //to set border radius to button
                       borderRadius: BorderRadius.circular(5)),
-                  padding: EdgeInsets.all(20) //content padding inside button
+                  padding: const EdgeInsets.all(20) //content padding inside button
                   ),
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back,
                 size: 32,
               ),
-              label: Text(
-                "Logout Out",
+              label: const Text(
+                'Logout Out',
                 style: TextStyle(fontSize: 24),
               ),
               onPressed: () => FirebaseAuth.instance.signOut(),

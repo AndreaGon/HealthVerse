@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 
 class ProfileWidget extends StatelessWidget {
@@ -32,13 +31,11 @@ class ProfileWidget extends StatelessWidget {
 
   //modify this for image editing
   Widget buildImage() {
-    final image = NetworkImage(imagePath);
-
     return ClipOval(
       child: Material(
         color: Colors.transparent,
         child: Ink.image(
-          image: AssetImage('assets/images/user_profile.png'),
+          image: const AssetImage('assets/images/user_profile.png'),
           fit: BoxFit.cover,
           width: 128,
           height: 128,
@@ -51,7 +48,7 @@ class ProfileWidget extends StatelessWidget {
   Widget buildEditIcon(Color color) => buildCircle(
         color: color,
         pad: 8,
-        child: Icon(
+        child: const Icon(
           Icons.edit,
           color: Colors.white,
           size: 20,
@@ -67,9 +64,9 @@ class ProfileWidget extends StatelessWidget {
       //use info above here for circle
       ClipOval(
         child: Container(
-          child: child,
           color: color,
           padding: EdgeInsets.all(pad),
+          child: child,
         ),
       );
 }

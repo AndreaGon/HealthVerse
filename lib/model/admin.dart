@@ -20,9 +20,9 @@ class Admin {
   }
 
   Map<String, dynamic> toJson() => {
-    'id': this.id,
-    'notif_content': this.notif_content,
-    'timestamp': this.timestamp,
-    'title': this.title
+    'id': id,
+    'notif_content': notif_content,
+    'timestamp': timestamp,
+    'title': title
   };
 }

@@ -7,7 +7,6 @@ import 'package:flutter_userprofile1/model/users.dart';
 import 'package:flutter_userprofile1/page/profile_page/widget/profile_widget.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-import '../../model/post.dart';
 import '../../widget/appbar_widget.dart';
 import 'widget/profile_widget.dart';
 
@@ -46,18 +45,18 @@ class _ProfilePageState extends State<ProfilePage> {
           adminNotif = snapshot.data![1];
           return Scaffold(
       //top bar
-            appBar: buildAppBar(context, "Profile Page"),
-            backgroundColor: Color.fromARGB(255, 228, 218, 218),
+            appBar: buildAppBar(context, 'Profile Page'),
+            backgroundColor: const Color.fromARGB(255, 228, 218, 218),
             //list view # maybe edit this to change the look
             body: ListView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               children: [
                 const SizedBox(
                   height: 10,
                 ),
                 //the image method
                 ProfileWidget(
-                  imagePath: "../assets/user_profile.png",
+                  imagePath: '../assets/user_profile.png',
                   onClicked: () async {},
                 ),
                 const SizedBox(
@@ -79,7 +78,7 @@ class _ProfilePageState extends State<ProfilePage> {
         children: [
           Text(
             user.name,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 24,
             ),
@@ -89,14 +88,14 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           Text(
             user.email,
-            style: TextStyle(color: Colors.black),
+            style: const TextStyle(color: Colors.black),
           ),
           const SizedBox(
             height: 4,
           ),
           Text(
-            "Total Points: ${user.points}",
-            style: TextStyle(color: Colors.black),
+            'Total Points: ${user.points}',
+            style: const TextStyle(color: Colors.black),
           ),
         ],
       );
@@ -104,13 +103,13 @@ class _ProfilePageState extends State<ProfilePage> {
   // Container with icons & user info
   Widget buildContent(Users user) => Container(
         decoration: BoxDecoration(
-            color: Color.fromARGB(255, 222, 202, 186),
+            color: const Color.fromARGB(255, 222, 202, 186),
             border: Border.all(width: 1),
-            borderRadius: BorderRadius.all(
+            borderRadius: const BorderRadius.all(
               Radius.circular(20),
             )),
         padding: const EdgeInsets.all(30),
-        margin: EdgeInsets.all(20),
+        margin: const EdgeInsets.all(20),
         child: Row(
           //putting the 3 icons and text next to each other
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -120,19 +119,19 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 Container(
                   //box surrounding the icon
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: Color.fromARGB(116, 115, 150, 74),
                       borderRadius: BorderRadius.all(
                         Radius.circular(5),
                       )),
                   padding: const EdgeInsets.all(10),
-                  margin: EdgeInsets.all(10),
-                  child: Icon(Icons.local_fire_department_sharp,
+                  margin: const EdgeInsets.all(10),
+                  child: const Icon(Icons.local_fire_department_sharp,
                       size: 35, color: Color.fromARGB(255, 228, 218, 218)),
                 ),
                 Text(
-                  '${user.calories}',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  user.calories,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const Text('Calories'),
               ],
@@ -142,19 +141,19 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 Container(
                   //box surrounding the icon
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: Color.fromARGB(116, 115, 150, 74),
                       borderRadius: BorderRadius.all(
                         Radius.circular(5),
                       )),
                   padding: const EdgeInsets.all(10),
-                  margin: EdgeInsets.all(10),
-                  child: Icon(Icons.timer,
+                  margin: const EdgeInsets.all(10),
+                  child: const Icon(Icons.timer,
                       size: 35, color: Color.fromARGB(255, 228, 218, 218)),
                 ),
                 Text(
-                  '${user.hours}',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  user.hours,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const Text('Hours'),
               ],
@@ -164,19 +163,19 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 Container(
                   //box surrounding the icon
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: Color.fromARGB(116, 115, 150, 74),
                       borderRadius: BorderRadius.all(
                         Radius.circular(5),
                       )),
                   padding: const EdgeInsets.all(10),
-                  margin: EdgeInsets.all(10),
-                  child: Icon(Icons.directions_walk,
+                  margin: const EdgeInsets.all(10),
+                  child: const Icon(Icons.directions_walk,
                       size: 40, color: Color.fromARGB(255, 228, 218, 218)),
                 ),
                 Text(
-                  '${user.steps}',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  user.steps,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const Text('Steps'),
               ],
@@ -187,19 +186,19 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget buildActivity(Users user) => Container(
         decoration: BoxDecoration(
-            color: Color.fromARGB(255, 222, 202, 186),
+            color: const Color.fromARGB(255, 222, 202, 186),
             border: Border.all(width: 1),
-            borderRadius: BorderRadius.all(
+            borderRadius: const BorderRadius.all(
               Radius.circular(20),
             )),
         padding: const EdgeInsets.all(20),
-        margin: EdgeInsets.all(20),
+        margin: const EdgeInsets.all(20),
         child: Column(
           children: [
             //Displaying the Last Activity Text
-            Align(
+            const Align(
               alignment: Alignment(-1, -1),
-              child: Text("Last Activity",
+              child: Text('Last Activity',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             ),
             const SizedBox(
@@ -209,7 +208,7 @@ class _ProfilePageState extends State<ProfilePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Icon(
+                const Icon(
                   Icons.circle,
                   size: 10,
                 ),
@@ -217,9 +216,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   width: 24,
                 ),
                 Text(
-                  "Total calories burned as of today: ${user.calories}",
+                  'Total calories burned as of today: ${user.calories}',
                   textAlign: TextAlign.start,
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -229,19 +228,19 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget buildAdminNotif(Admin admin) => Container(
         decoration: BoxDecoration(
-            color: Color.fromARGB(255, 222, 202, 186),
+            color: const Color.fromARGB(255, 222, 202, 186),
             border: Border.all(width: 1),
-            borderRadius: BorderRadius.all(
+            borderRadius: const BorderRadius.all(
               Radius.circular(20),
             )),
         padding: const EdgeInsets.all(20),
-        margin: EdgeInsets.all(20),
+        margin: const EdgeInsets.all(20),
         child: Column(
           children: [
             //Displaying the Last Activity Text
-            Align(
+            const Align(
               alignment: Alignment(-1, -1),
-              child: Text("Health Tips",
+              child: Text('Health Tips',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             ),
             const SizedBox(
@@ -251,7 +250,7 @@ class _ProfilePageState extends State<ProfilePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Icon(
+                const Icon(
                   Icons.circle,
                   size: 10,
                 ),
@@ -259,9 +258,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   width: 24,
                 ),
                 Text(
-                  "${admin.notif_content}",
+                  admin.notif_content,
                   textAlign: TextAlign.start,
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -271,9 +270,9 @@ class _ProfilePageState extends State<ProfilePage> {
   
 
   Future<List> getUser() async {
-    final curr_user = FirebaseAuth.instance.currentUser!.uid;
+    final currUser = FirebaseAuth.instance.currentUser!.uid;
 
-    QuerySnapshot query = await FirebaseFirestore.instance.collection("User").where("id", isEqualTo: curr_user).get();
+    QuerySnapshot query = await FirebaseFirestore.instance.collection('User').where('id', isEqualTo: currUser).get();
 
     final user = query.docs.map((doc)=> Users.fromJson(doc.data() as Map<String, dynamic>)).toList();
 
@@ -283,7 +282,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<List> getAdminNotif() async{
-    QuerySnapshot query = await FirebaseFirestore.instance.collection("Admin_notif").orderBy("timestamp", descending: true).limit(1).get();
+    QuerySnapshot query = await FirebaseFirestore.instance.collection('Admin_notif').orderBy('timestamp', descending: true).limit(1).get();
     final admin = query.docs.map((doc)=> Admin.fromJson(doc.data() as Map<String, dynamic>)).toList();
 
     return admin;
