@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_userprofile1/page/settings_page/settings_page.dart';
 
 AppBar buildAppBar(BuildContext context, String title) {
-  final icon = CupertinoIcons.settings;
+  const icon = CupertinoIcons.settings;
 
   return AppBar(
-    leading: BackButton(
+    leading: const BackButton(
       color: Colors.white,
     ),
-    backgroundColor: Color.fromARGB(255, 43, 91, 45),
+    backgroundColor: const Color.fromARGB(255, 43, 91, 45),
     elevation: 0,
     title: Text(title),
     centerTitle: true,
@@ -17,7 +17,7 @@ AppBar buildAppBar(BuildContext context, String title) {
     //for the settings page
     actions: [
       IconButton(
-        icon: Icon(icon),
+        icon: const Icon(icon),
         color: Colors.white,
         onPressed: () {
           Navigator.push(

@@ -41,6 +41,7 @@ dependencies:
   email_validator: ^2.0.1
   uuid: ^3.0.6
   circular_countdown_timer: ^0.2.1
+  bdd_widget_test: ^1.4.2
 
 dev_dependencies:
   flutter_test:

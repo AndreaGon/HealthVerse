@@ -20,9 +20,9 @@ class Post {
   }
 
   Map<String, dynamic> toJson() => {
-    'comments_number': this.comments_number,
-    'likes_number': this.likes_number,
-    'text': this.text,
-    'userId': this.userId
+    'comments_number': comments_number,
+    'likes_number': likes_number,
+    'text': text,
+    'userId': userId
   };
 }
