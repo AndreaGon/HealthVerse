@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AddTimeValue extends StatelessWidget {
@@ -14,19 +13,19 @@ class AddTimeValue extends StatelessWidget {
     return Column(children: [
       InkWell(
         onTap: () {
-          print(this.value);
+          print(value);
         },
         child: Container(
             decoration: BoxDecoration(
                 border: Border.all(
-              color: Color.fromARGB(255, 153, 155, 132),
+              color: const Color.fromARGB(255, 153, 155, 132),
             )),
-            child: Text(time, style: TextStyle(color: Colors.black))),
+            child: Text(time, style: const TextStyle(color: Colors.black))),
       ),
-      SizedBox(
+      const SizedBox(
         height: 5,
       ),
-      Text(min, style: TextStyle(color: Colors.black))
+      Text(min, style: const TextStyle(color: Colors.black))
     ]);
   }
 }

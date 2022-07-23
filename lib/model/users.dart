@@ -48,18 +48,18 @@ class Users {
   }
 
   Map<String, dynamic> toJson() => {
-    'id': this.id,
-    'imagePath': this.imagePath,
-    'name': this.name,
-    'gender': this.gender,
-    'height': this.height,
-    'weight': this.weight,
-    'email': this.email,
-    'points': this.points,
-    'calories': this.calories,
-    'hours': this.hours,
-    'steps': this.steps,
-    'date': this.date,
-    'last_exercise': this.last_exercise
+    'id': id,
+    'imagePath': imagePath,
+    'name': name,
+    'gender': gender,
+    'height': height,
+    'weight': weight,
+    'email': email,
+    'points': points,
+    'calories': calories,
+    'hours': hours,
+    'steps': steps,
+    'date': date,
+    'last_exercise': last_exercise
   };
 }

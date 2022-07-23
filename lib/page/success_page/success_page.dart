@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../model/users.dart';
 import '../../widget/appbar_widget.dart';
 
+// ignore: must_be_immutable
 class SuccessPage extends StatefulWidget {
   late int timeDuration;
 
@@ -17,9 +17,9 @@ class SuccessPage extends StatefulWidget {
 
 class _SuccessPageState extends State<SuccessPage> {
   List user = [];
-  String points = "0";
-  String caloriesBurned = "0";
-  String hoursExercised = "0";
+  String points = '0';
+  String caloriesBurned = '0';
+  String hoursExercised = '0';
   
   @override
   Widget build(BuildContext context) {
@@ -42,11 +42,11 @@ class _SuccessPageState extends State<SuccessPage> {
 
           return Scaffold(
       //top bar
-            appBar: buildAppBar(context, "Success!"),
-            backgroundColor: Color.fromARGB(255, 228, 218, 218),
+            appBar: buildAppBar(context, 'Success!'),
+            backgroundColor: const Color.fromARGB(255, 228, 218, 218),
             //list view # maybe edit this to change the look
             body: ListView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               children: [
                 const SizedBox(
                   height: 10,
@@ -61,19 +61,19 @@ class _SuccessPageState extends State<SuccessPage> {
 
   Widget buildSuccess(BuildContext context) => Container(
         decoration: BoxDecoration(
-            color: Color.fromARGB(255, 222, 202, 186),
+            color: const Color.fromARGB(255, 222, 202, 186),
             border: Border.all(width: 1),
-            borderRadius: BorderRadius.all(
+            borderRadius: const BorderRadius.all(
               Radius.circular(20),
             )),
         padding: const EdgeInsets.all(20),
-        margin: EdgeInsets.all(20),
+        margin: const EdgeInsets.all(20),
         child: Column(
           children: [
             //Displaying the Last Activity Text
-            Align(
+            const Align(
               alignment: Alignment(-1, -1),
-              child: Text("Well Done!",
+              child: Text('Well Done!',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             ),
             const SizedBox(
@@ -82,12 +82,12 @@ class _SuccessPageState extends State<SuccessPage> {
             //Aligning the Icon & Latest Exercise
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(
+              children: const [
+                SizedBox(
                   width: 24,
                 ),
                 Text(
-                  "You earned 5 points!",
+                  'You earned 5 points!',
                   textAlign: TextAlign.start,
                   style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                 ),
@@ -98,13 +98,13 @@ class _SuccessPageState extends State<SuccessPage> {
       );
 
       Future<void> updatePoints() async {
-        final curr_user = FirebaseAuth.instance.currentUser!.uid;
-        QuerySnapshot query = await FirebaseFirestore.instance.collection("User").where("id", isEqualTo: curr_user).get();
+        final currUser = FirebaseAuth.instance.currentUser!.uid;
+        QuerySnapshot query = await FirebaseFirestore.instance.collection('User').where('id', isEqualTo: currUser).get();
 
         final user = query.docs.map((doc)=> Users.fromJson(doc.data() as Map<String, dynamic>)).toList();
         points = (double.parse(user.first.points) + 5).toStringAsFixed(3);
         caloriesBurned = ((widget.timeDuration / 60) * (5 * 3.5 * int.parse(user.first.weight))/200).toStringAsFixed(3);
         hoursExercised = (double.parse(user.first.hours) + (widget.timeDuration) / 3600).toStringAsFixed(3);
-        FirebaseFirestore.instance.collection("User").doc(curr_user).update({"points": (points), "last_exercise": DateTime.now(), "calories": caloriesBurned, "hours": hoursExercised});
+        FirebaseFirestore.instance.collection('User').doc(currUser).update({'points': (points), 'last_exercise': DateTime.now(), 'calories': caloriesBurned, 'hours': hoursExercised});
       }
 }
