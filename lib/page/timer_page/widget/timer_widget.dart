@@ -24,12 +24,7 @@ class AddTimeValue extends StatelessWidget {
                 border: Border.all(
               color: const Color.fromARGB(255, 153, 155, 132),
             )),
-<<<<<<< HEAD
-            child: Text(time,
-                style: TextStyle(color: Color.fromARGB(255, 255, 252, 252)))),
-=======
             child: Text(time, style: const TextStyle(color: Colors.black))),
->>>>>>> 96aa69ce8ddf2087db6eeab2ae486231c9130ce7
       ),
       const SizedBox(
         height: 5,

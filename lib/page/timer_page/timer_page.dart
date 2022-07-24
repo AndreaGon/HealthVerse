@@ -14,7 +14,7 @@ class _TimerPageState extends State<TimerPage> {
   final CountDownController controller = CountDownController();
 
   @override
-  // ignore: avoid_types_as_parameter_names
+  // ignore: avoid_types_as_parameter_names, dead_code, dead_code
   Widget build(BuildContext) {
     return Scaffold(
         appBar: buildAppBar(context, 'Daily Exercise Goals'),
@@ -147,8 +147,7 @@ class _TimerPageState extends State<TimerPage> {
             width: 10,
           ),
         ],
-      ),
-    );
+      );
   }
 
   Widget buildTimer(BuildContext context) {
