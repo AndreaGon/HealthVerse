@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_userprofile1/page/content_page/content_page.dart';
 
@@ -71,7 +72,7 @@ class _CommunitiesState extends State<Communities> {
                 backgroundColor: Colors.purple,
                 child: Icon(Icons.person),
               ),
-              title: const Text('Sample text'),
+              title: Text(posts[index].username),
               subtitle: Text(posts[index].text)
             ),
           ),
@@ -90,9 +91,12 @@ class _CommunitiesState extends State<Communities> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             IconButton(
-              onPressed: (){}, 
+              onPressed: (){
+                likeItem(posts[index]);
+
+              }, 
               icon: const Icon(Icons.favorite_border)),
-            Text(posts[index].likes_number),
+            Text(posts[index].likes_number.toString()),
             const SizedBox(width: 8),
             IconButton(
               onPressed: (){}, 
@@ -125,6 +129,23 @@ class _CommunitiesState extends State<Communities> {
     final allPostings = query.docs.map((doc)=> Post.fromJson(doc.data() as Map<String, dynamic>)).toList();
 
     return allPostings;
+  }
+
+
+
+  Future likeItem(Post post) async {
+    print('Submtitting form');
+    
+    QuerySnapshot query = await FirebaseFirestore.instance.collection('Postings').where('id', isEqualTo: post.id).get();
+
+    final posting = query.docs.map((doc)=> Post.fromJson(doc.data() as Map<String, dynamic>)).toList();
+    int currentLikes = posting.first.likes_number;
+    int newLike = currentLikes + 1;
+
+    
+    
+    FirebaseFirestore.instance.collection('Postings').doc(post.id).update({'likes_number': newLike});
+    setState(() {});
   }
 
 }
