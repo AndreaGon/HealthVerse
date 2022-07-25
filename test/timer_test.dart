@@ -15,7 +15,6 @@ void main() async {
       data: const MediaQueryData(),
       child: MaterialApp(home: TimerPage())
   );
-
   testWidgets('Timer should add 5 minutes', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(testTimer);

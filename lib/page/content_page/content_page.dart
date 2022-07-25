@@ -1,6 +1,8 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_userprofile1/model/users.dart';
 
 import '../../model/post.dart';
 import '../../widget/appbar_widget.dart';
@@ -77,16 +79,20 @@ class _ContentPageState extends State<ContentPage>{
   }
 
   Future createNewPost() async {
-    print('Submtitting form');
     formKey.currentState?.save();
-
+    final currUser = FirebaseAuth.instance.currentUser!.uid;
     final docPost = FirebaseFirestore.instance.collection('Postings').doc();
-  
+    QuerySnapshot query = await FirebaseFirestore.instance.collection('User').where('id', isEqualTo: currUser).get();
+
+    final user = query.docs.map((doc)=> Users.fromJson(doc.data() as Map<String, dynamic>)).toList();
+
     Post postJson = Post(
+      id: docPost.id,
       comments_number: '0',
-      likes_number: '0',
+      likes_number: 0,
       text: postData['text'],
-      userId: '0'
+      userId: currUser,
+      username: user.first.name
     );
     
     await docPost.set(postJson.toJson());
