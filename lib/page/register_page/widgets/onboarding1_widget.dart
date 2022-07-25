@@ -1,29 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_userprofile1/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_userprofile1/main.dart';
-import 'package:email_validator/email_validator.dart';
-import 'package:flutter_userprofile1/page/login_page/pages/test_page.dart';
-import 'package:flutter_userprofile1/page/profile_page/profile_page.dart';
-import 'package:flutter_userprofile1/page/register_page/onboarding/onboarding1.dart';
 import 'package:flutter_userprofile1/widget/navigation_widget.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../../model/users.dart';
 
 class OnboardingPage1Widget extends StatefulWidget {
   final String email;
-  const OnboardingPage1Widget({super.key, required this.email});
+  final String name;
+  const OnboardingPage1Widget({super.key, required this.email, required this.name});
 
   @override
   _OnboardingPage1WidgetState createState() => _OnboardingPage1WidgetState();
 }
 
 class _OnboardingPage1WidgetState extends State<OnboardingPage1Widget> {
-  final male = "Male";
-  final female = "Female";
-  var gender = "";
+  final male = 'Male';
+  final female = 'Female';
+  var gender = '';
   final age_input = TextEditingController();
   final weight_input = TextEditingController();
   final height_input = TextEditingController();
@@ -46,18 +40,18 @@ class _OnboardingPage1WidgetState extends State<OnboardingPage1Widget> {
 
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
-          Text(
-            "What is Your Gender?",
+          const Text(
+            'What is Your Gender?',
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 35, fontWeight: FontWeight.bold, color: Colors.black),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           //Row for male and female
@@ -67,26 +61,26 @@ class _OnboardingPage1WidgetState extends State<OnboardingPage1Widget> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 25,
               ),
               SizedBox(
                 width: 150,
                 height: 80,
                 child: ElevatedButton(
-                  child: Text(
-                    male,
-                    style: TextStyle(fontSize: 35),
-                  ),
                   onPressed: isButtonActive1
                       ? () {
                           setState(() => isButtonActive2 = false);
-                          this.gender = male;
+                          gender = male;
                         }
                       : null,
+                  child: Text(
+                    male,
+                    style: const TextStyle(fontSize: 35),
+                  ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
               SizedBox(
@@ -96,87 +90,87 @@ class _OnboardingPage1WidgetState extends State<OnboardingPage1Widget> {
                   style: ElevatedButton.styleFrom(
                     primary: isButtonActive2 ? Colors.blue : Colors.green,
                   ),
-                  child: Text(
-                    female,
-                    style: TextStyle(fontSize: 35),
-                  ),
                   onPressed: isButtonActive2
                       ? () {
                           setState(() => isButtonActive1 = false);
-                          this.gender = female;
+                          gender = female;
                         }
                       : null,
+                  child: Text(
+                    female,
+                    style: const TextStyle(fontSize: 35),
+                  ),
                 ),
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
-          Text(
-            "How old are you?",
+          const Text(
+            'How old are you?',
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 35, fontWeight: FontWeight.bold, color: Colors.black),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Container(
             decoration:
-                BoxDecoration(color: Color.fromARGB(255, 196, 190, 190)),
+                const BoxDecoration(color: Color.fromARGB(255, 196, 190, 190)),
             child: TextField(
               controller: age_input,
               cursorColor: Colors.black,
               textInputAction: TextInputAction.next,
-              decoration: InputDecoration(border: OutlineInputBorder()),
+              decoration: const InputDecoration(border: OutlineInputBorder()),
               //obscureText: true,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
-          Text(
-            "What is Your Weight?",
+          const Text(
+            'What is Your Weight?',
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 35, fontWeight: FontWeight.bold, color: Colors.black),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Container(
             decoration:
-                BoxDecoration(color: Color.fromARGB(255, 196, 190, 190)),
+                const BoxDecoration(color: Color.fromARGB(255, 196, 190, 190)),
             child: TextField(
               controller: weight_input,
               cursorColor: Colors.black,
               textInputAction: TextInputAction.next,
-              decoration: InputDecoration(border: OutlineInputBorder()),
+              decoration: const InputDecoration(border: OutlineInputBorder()),
               //obscureText: true,
             ),
           ),
-          Text(
-            "What is Your Height (in ft)?",
+          const Text(
+            'What is Your Height (in ft)?',
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Container(
             decoration:
-                BoxDecoration(color: Color.fromARGB(255, 196, 190, 190)),
+                const BoxDecoration(color: Color.fromARGB(255, 196, 190, 190)),
             child: TextField(
               controller: height_input,
               cursorColor: Colors.black,
               textInputAction: TextInputAction.next,
-              decoration: InputDecoration(border: OutlineInputBorder()),
+              decoration: const InputDecoration(border: OutlineInputBorder()),
               //obscureText: true,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 120,
           ),
           //finish button
@@ -184,9 +178,9 @@ class _OnboardingPage1WidgetState extends State<OnboardingPage1Widget> {
             height: 50,
             width: 400,
             decoration: BoxDecoration(
-                color: Color.fromARGB(255, 231, 174, 219),
+                color: const Color.fromARGB(255, 231, 174, 219),
                 border: Border.all(width: 2),
-                borderRadius: BorderRadius.all(
+                borderRadius: const BorderRadius.all(
                   Radius.circular(5),
                 )),
             child: TextButton(
@@ -196,7 +190,7 @@ class _OnboardingPage1WidgetState extends State<OnboardingPage1Widget> {
                     //to set border radius to button
                     borderRadius: BorderRadius.circular(5)),
               ),
-              child: Text(
+              child: const Text(
                 'Finish',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 25, color: Colors.black),
@@ -216,18 +210,18 @@ class _OnboardingPage1WidgetState extends State<OnboardingPage1Widget> {
       final docPost = FirebaseFirestore.instance.collection('User').doc(FirebaseAuth.instance.currentUser!.uid);
       Users postJson = Users(
         id: FirebaseAuth.instance.currentUser!.uid,
-        imagePath: "../../assets/user_profile.png",
-        name: "",
-        gender: this.gender,
+        imagePath: '../../assets/user_profile.png',
+        name: widget.name,
+        gender: gender,
         height: height_input.text,
         weight: weight_input.text,
-        email: '${widget.email}',
-        points: "0",
-        calories: "0",
-        hours: "0",
-        steps: "0",
-        date: "0",
-        last_exercise: "0"
+        email: widget.email,
+        points: '0',
+        calories: '0',
+        hours: '0',
+        steps: '0',
+        date: '0',
+        last_exercise: '0'
       );
       
       await docPost.set(postJson.toJson());

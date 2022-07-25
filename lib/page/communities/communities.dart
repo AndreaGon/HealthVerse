@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_userprofile1/page/communities/utils/post_preferences.dart';
 import 'package:flutter_userprofile1/page/content_page/content_page.dart';
 
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -43,8 +41,8 @@ class _CommunitiesState extends State<Communities> {
             posts = snapshot.data!;
             return Scaffold(
               floatingActionButton: buildFloatingAddContent(context),
-              appBar: buildAppBar(context, "Communities"),
-              backgroundColor: Color(0xF4EEED),
+              appBar: buildAppBar(context, 'Communities'),
+              backgroundColor: const Color(0x00f4eeed),
               body: SafeArea(
                 child: ListView.builder(
                   itemCount: posts.length,
@@ -59,27 +57,26 @@ class _CommunitiesState extends State<Communities> {
     
   }
 
-  @override
   Widget buildPostCard(BuildContext context, int index){
     return Card(
       elevation: 6,
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: ListTile(
-              leading: CircleAvatar(
-                child: Icon(Icons.person),
+              leading: const CircleAvatar(
                 backgroundColor: Colors.purple,
+                child: Icon(Icons.person),
               ),
-              title: Text("Sample text"),
+              title: Text(posts[index].username),
               subtitle: Text(posts[index].text)
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: buildButtons(context, index)
           )
         ]
@@ -87,16 +84,18 @@ class _CommunitiesState extends State<Communities> {
     );
   }
 
-  @override
   Widget buildButtons(BuildContext context, int index){
     return Center(
       child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             IconButton(
-              onPressed: (){}, 
+              onPressed: (){
+                likeItem(posts[index]);
+
+              }, 
               icon: const Icon(Icons.favorite_border)),
-            Text(posts[index].likes_number),
+            Text(posts[index].likes_number.toString()),
             const SizedBox(width: 8),
             IconButton(
               onPressed: (){}, 
@@ -109,7 +108,6 @@ class _CommunitiesState extends State<Communities> {
     
   }
 
-  @override
   Widget buildFloatingAddContent(BuildContext context){
     return FloatingActionButton(
       onPressed: (){
@@ -125,11 +123,28 @@ class _CommunitiesState extends State<Communities> {
 
 
   Future<List> getData() async {
-    QuerySnapshot query = await FirebaseFirestore.instance.collection("Postings").get();
+    QuerySnapshot query = await FirebaseFirestore.instance.collection('Postings').get();
 
     final allPostings = query.docs.map((doc)=> Post.fromJson(doc.data() as Map<String, dynamic>)).toList();
 
     return allPostings;
+  }
+
+
+
+  Future likeItem(Post post) async {
+    print('Submtitting form');
+    
+    QuerySnapshot query = await FirebaseFirestore.instance.collection('Postings').where('id', isEqualTo: post.id).get();
+
+    final posting = query.docs.map((doc)=> Post.fromJson(doc.data() as Map<String, dynamic>)).toList();
+    int currentLikes = posting.first.likes_number;
+    int newLike = currentLikes + 1;
+
+    
+    
+    FirebaseFirestore.instance.collection('Postings').doc(post.id).update({'likes_number': newLike});
+    setState(() {});
   }
 
 }

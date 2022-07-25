@@ -1,19 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_userprofile1/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_userprofile1/main.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:flutter_userprofile1/page/login_page/pages/test_page.dart';
 import 'package:flutter_userprofile1/page/register_page/onboarding/onboarding1.dart';
-import 'package:flutter_userprofile1/widget/navigation_widget.dart';
 
-import '../../../model/users.dart';
-import '../../communities/communities.dart';
-import 'package:uuid/uuid.dart';
 
-import '../../../model/users.dart';
-import '../../communities/communities.dart';
 
 class RegisterWidget extends StatefulWidget {
   @override
@@ -39,23 +29,23 @@ class _RegisterWidgetState extends State<RegisterWidget> {
 
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Form(
           key: formkey,
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Row(),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
-            Text(
-              "Enter Your Name",
+            const Text(
+              'Enter Your Name',
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 50,
                   fontWeight: FontWeight.bold,
                   color: Colors.black),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             //Container for Confirm Email
             SizedBox(
               width: 400,
@@ -63,20 +53,20 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 controller: username_Controller,
                 cursorColor: Colors.black,
                 textInputAction: TextInputAction.next,
-                decoration: InputDecoration(
-                    labelText: 'Email', border: OutlineInputBorder()),
+                decoration: const InputDecoration(
+                    labelText: 'Name', border: OutlineInputBorder()),
                 obscureText: false,
               ),
             ),
-            Text(
-              "Create Your Account",
+            const Text(
+              'Create Your Account',
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 50,
                   fontWeight: FontWeight.bold,
                   color: Colors.black),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             //Container for Confirm Email
             SizedBox(
               width: 400,
@@ -84,17 +74,17 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 controller: sign_in_emailController,
                 cursorColor: Colors.black,
                 textInputAction: TextInputAction.next,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     labelText: 'Email', border: OutlineInputBorder()),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (email) =>
                     email != null && !EmailValidator.validate(email)
-                        ? "Enter Valid Email"
+                        ? 'Enter Valid Email'
                         : null,
                 obscureText: false,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 14,
             ),
             //Container for Password
@@ -104,16 +94,16 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 controller: sign_in_passwordController,
                 cursorColor: Colors.black,
                 textInputAction: TextInputAction.next,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     labelText: 'Password', border: OutlineInputBorder()),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) => value != null && value.length < 6
-                    ? "Enter Minimum 6 characters"
+                    ? 'Enter Minimum 6 characters'
                     : null,
                 obscureText: true,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 190,
             ),
             //Continue Button
@@ -121,9 +111,9 @@ class _RegisterWidgetState extends State<RegisterWidget> {
               height: 50,
               width: 400,
               decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 231, 174, 219),
+                  color: const Color.fromARGB(255, 231, 174, 219),
                   border: Border.all(width: 2),
-                  borderRadius: BorderRadius.all(
+                  borderRadius: const BorderRadius.all(
                     Radius.circular(5),
                   )),
               child: TextButton(
@@ -133,7 +123,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       //to set border radius to button
                       borderRadius: BorderRadius.circular(5)),
                 ),
-                child: Text(
+                child: const Text(
                   'Continue',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 25, color: Colors.black),
@@ -144,7 +134,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => Onboarding1Page(email: sign_in_emailController.text.trim())));
+                          builder: (context) => Onboarding1Page(email: sign_in_emailController.text.trim(), name: username_Controller.text.trim())));
                 },
               ),
             )

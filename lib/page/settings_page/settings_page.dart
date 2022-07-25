@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_userprofile1/widget/appbar_widget.dart';
 
-import '../login_page/pages/login_page.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -13,34 +12,32 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     //current user login
-    final curr_user = FirebaseAuth.instance.currentUser!;
-
-    return Scaffold(
+     return Scaffold(
       //top bar
-      appBar: buildAppBar(context, "Settings"),
-      backgroundColor: Color.fromRGBO(156, 180, 171, 1),
+      appBar: buildAppBar(context, 'Settings'),
+      backgroundColor: const Color.fromRGBO(156, 180, 171, 1),
       //list view # maybe edit this to change the look
       body: ListView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         children: [
-          SizedBox(
+          const SizedBox(
             height: 125,
           ),
           Container(
-            constraints: BoxConstraints(maxHeight: double.infinity),
+            constraints: const BoxConstraints(maxHeight: double.infinity),
             decoration: BoxDecoration(
-                color: Color.fromARGB(116, 115, 150, 74),
+                color: const Color.fromARGB(116, 115, 150, 74),
                 border: Border.all(width: 3),
-                borderRadius: BorderRadius.all(
+                borderRadius: const BorderRadius.all(
                   Radius.circular(5),
                 )),
             padding: const EdgeInsets.all(10),
-            margin: EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
             child: TextButton(
                 style: TextButton.styleFrom(
                   primary: Colors.black,
                 ),
-                child: Text(
+                child: const Text(
                   'Logout',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
@@ -56,24 +53,24 @@ class _SettingsPageState extends State<SettingsPage> {
                 //     MaterialPageRoute(builder: (context) => LoginPage()));
                 ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 100,
           ),
           Container(
-            constraints: BoxConstraints(maxHeight: double.infinity),
+            constraints: const BoxConstraints(maxHeight: double.infinity),
             decoration: BoxDecoration(
-                color: Color.fromARGB(116, 115, 150, 74),
+                color: const Color.fromARGB(116, 115, 150, 74),
                 border: Border.all(width: 3),
-                borderRadius: BorderRadius.all(
+                borderRadius: const BorderRadius.all(
                   Radius.circular(5),
                 )),
             padding: const EdgeInsets.all(10),
-            margin: EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
             child: TextButton(
               style: TextButton.styleFrom(
                 primary: Colors.black,
               ),
-              child: Text(
+              child: const Text(
                 'Credits',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
@@ -83,8 +80,8 @@ class _SettingsPageState extends State<SettingsPage> {
                   context: context,
                   builder: (context) => AlertDialog(
                     //title
-                    title: Text(
-                      "Company",
+                    title: const Text(
+                      'Company',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
@@ -101,29 +98,29 @@ class _SettingsPageState extends State<SettingsPage> {
                         // box behind the TWEEN
                         Container(
                           decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 222, 202, 186),
+                              color: const Color.fromARGB(255, 222, 202, 186),
                               border: Border.all(width: 1),
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(20),
                               )),
                           padding: const EdgeInsets.all(10),
-                          margin: EdgeInsets.all(10),
-                          child: Text(
-                            "Tween PLT",
+                          margin: const EdgeInsets.all(10),
+                          child: const Text(
+                            'Tween PLT',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 50, fontWeight: FontWeight.bold),
                           ),
                         ),
                         //Spacing between Company & Developers
-                        SizedBox(
+                        const SizedBox(
                           height: 100,
                           width: 40,
                           // child: DecoratedBox(
                           //   decoration: BoxDecoration(color: Colors.red), ),
                         ),
-                        Text(
-                          "Developers",
+                        const Text(
+                          'Developers',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 40,
@@ -135,15 +132,15 @@ class _SettingsPageState extends State<SettingsPage> {
                           height: 50,
                           width: 500,
                           decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 222, 202, 186),
+                              color: const Color.fromARGB(255, 222, 202, 186),
                               border: Border.all(width: 1),
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(20),
                               )),
                           padding: const EdgeInsets.all(10),
-                          margin: EdgeInsets.all(10),
-                          child: Text(
-                            "Andrea Tantay  Gonzales",
+                          margin: const EdgeInsets.all(10),
+                          child: const Text(
+                            'Andrea Tantay  Gonzales',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 25, fontWeight: FontWeight.bold),
@@ -154,15 +151,15 @@ class _SettingsPageState extends State<SettingsPage> {
                           height: 50,
                           width: 900,
                           decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 222, 202, 186),
+                              color: const Color.fromARGB(255, 222, 202, 186),
                               border: Border.all(width: 1),
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(20),
                               )),
                           padding: const EdgeInsets.all(10),
-                          margin: EdgeInsets.all(10),
-                          child: Text(
-                            "Darshanaa Naresh",
+                          margin: const EdgeInsets.all(10),
+                          child: const Text(
+                            'Darshanaa Naresh',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 25, fontWeight: FontWeight.bold),
@@ -173,15 +170,15 @@ class _SettingsPageState extends State<SettingsPage> {
                           height: 50,
                           width: 500,
                           decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 222, 202, 186),
+                              color: const Color.fromARGB(255, 222, 202, 186),
                               border: Border.all(width: 1),
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(20),
                               )),
                           padding: const EdgeInsets.all(10),
-                          margin: EdgeInsets.all(10),
-                          child: Text(
-                            "Padmessh Kalyan Kumar",
+                          margin: const EdgeInsets.all(10),
+                          child: const Text(
+                            'Padmessh Kalyan Kumar',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 25, fontWeight: FontWeight.bold),
@@ -192,16 +189,16 @@ class _SettingsPageState extends State<SettingsPage> {
                     insetPadding: EdgeInsets.zero,
                     actions: [
                       TextButton(
-                        child: Text(
-                          "Back",
+                        child: const Text(
+                          'Back',
                           style: TextStyle(color: Colors.white, fontSize: 30),
                         ),
                         onPressed: () => Navigator.pop(context),
                       ),
                     ],
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(32.0))),
-                    backgroundColor: Color.fromARGB(255, 28, 99, 157),
+                    backgroundColor: const Color.fromARGB(255, 28, 99, 157),
                   ),
                 );
               },

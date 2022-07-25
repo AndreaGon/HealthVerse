@@ -1,7 +1,6 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_userprofile1/page/success_page/success_page.dart';
-import 'package:flutter_userprofile1/page/timer_page/widget/timer_widget.dart';
 import 'package:flutter_userprofile1/widget/appbar_widget.dart';
 
 class TimerPage extends StatefulWidget {
@@ -16,10 +15,11 @@ class _TimerPageState extends State<TimerPage> {
   
   
   @override
+  // ignore: avoid_types_as_parameter_names
   Widget build(BuildContext) {
     return Scaffold(
-        appBar: buildAppBar(context, "Daily Exercise Goals"),
-        backgroundColor: Color.fromARGB(255, 244, 238, 237),
+        appBar: buildAppBar(context, 'Daily Exercise Goals'),
+        backgroundColor: const Color.fromARGB(255, 244, 238, 237),
         body: Column(
             children: [Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -37,7 +37,7 @@ class _TimerPageState extends State<TimerPage> {
                     width: 10,
                   ),
                   timerButtons(
-                    title: "Add 10 min",
+                    title: 'Add 10 min',
                     onPressed: () => {
                       duration += 600,
                       controller.restart(duration: duration),
@@ -48,7 +48,7 @@ class _TimerPageState extends State<TimerPage> {
                     width: 10,
                   ),
                   timerButtons(
-                    title: "Add 5 min",
+                    title: 'Add 5 min',
                     onPressed: () => {
                       duration += 300,
                       controller.restart(duration: duration),
@@ -70,21 +70,21 @@ class _TimerPageState extends State<TimerPage> {
                   width: 10,
                 ),
                 timerButtons(
-                  title: "Start",
+                  title: 'Start',
                   onPressed: () => controller.restart(duration: duration),
                 ),
                 const SizedBox(
                   width: 10,
                 ),
                 timerButtons(
-                  title: "Pause",
+                  title: 'Pause',
                   onPressed: () => controller.pause(),
                 ),
                 const SizedBox(
                   width: 10,
                 ),
                 timerButtons(
-                  title: "Resume",
+                  title: 'Resume',
                   onPressed: () => controller.resume(),
                 ),
                 const SizedBox(
@@ -100,15 +100,15 @@ class _TimerPageState extends State<TimerPage> {
     return CircularCountDownTimer(
               duration: duration,
               controller: controller,
-              fillColor: Color.fromARGB(255, 153, 155, 132), 
+              fillColor: const Color.fromARGB(255, 153, 155, 132), 
               height: MediaQuery.of(context).size.height / 2, 
-              ringColor: Color.fromARGB(255, 243, 253, 134), 
+              ringColor: const Color.fromARGB(255, 243, 253, 134), 
               width: MediaQuery.of(context).size.width / 2,
               isReverse: true,
               isReverseAnimation: true,
               isTimerTextShown: true,
               autoStart: false,
-              textStyle: TextStyle(
+              textStyle: const TextStyle(
               fontSize: 33.0, color: Color.fromARGB(255, 153, 155, 132), fontWeight: FontWeight.bold),
               textFormat: CountdownTextFormat.HH_MM_SS,
               onComplete: () {
@@ -122,7 +122,7 @@ class _TimerPageState extends State<TimerPage> {
     return Expanded(
       child: ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Color.fromARGB(116, 115, 150, 74)),
+          backgroundColor: MaterialStateProperty.all(const Color.fromARGB(116, 115, 150, 74)),
         ),
         onPressed: onPressed,
         child: Text(
@@ -137,7 +137,7 @@ class _TimerPageState extends State<TimerPage> {
     return Expanded(
       child: ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Color.fromARGB(116, 115, 150, 74)),
+          backgroundColor: MaterialStateProperty.all(const Color.fromARGB(116, 115, 150, 74)),
         ),
         onPressed: onPressed,
         child: Text(

@@ -1,7 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_userprofile1/main.dart';
 import 'package:flutter_userprofile1/page/register_page/pages/register_mode.dart';
 
 class LoginWidget extends StatefulWidget {
@@ -25,34 +24,34 @@ class _LoginWidgetState extends State<LoginWidget> {
   Widget build(BuildContext context) => SingleChildScrollView(
         child: Align(alignment: Alignment.center, 
         child: Column(children: [
-          SizedBox(
+          const SizedBox(
             height: 150,
           ),
-          Text(
-            "HealthVerse",
+          const Text(
+            'HealthVerse',
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 60, fontWeight: FontWeight.bold, color: Colors.white),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
-          Text(
-            "Login",
+          const Text(
+            'Login',
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
-          Text(
-            "Sign in to your account",
+          const Text(
+            'Sign in to your account',
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           //Text box for email
           //#Make sized box for the text field
           SizedBox(
@@ -61,17 +60,17 @@ class _LoginWidgetState extends State<LoginWidget> {
               controller: emailController,
               cursorColor: Colors.white,
               textInputAction: TextInputAction.next,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   labelText: 'Email', border: OutlineInputBorder()),
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: (email) =>
                   email != null && !EmailValidator.validate(email)
-                      ? "Enter Valid Email"
+                      ? 'Enter Valid Email'
                       : null,
               //obscureText: true,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 14,
           ),
           //Text box for password
@@ -82,37 +81,37 @@ class _LoginWidgetState extends State<LoginWidget> {
               controller: passwordController,
               cursorColor: Colors.white,
               textInputAction: TextInputAction.next,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   labelText: 'Password', border: OutlineInputBorder()),
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: (value) => value != null && value.length < 6
-                  ? "Enter Minimum 6 characters"
+                  ? 'Enter Minimum 6 characters'
                   : null,
               obscureText: true,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           SizedBox(
             width: 400,
             child: ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(
+                  primary: const Color.fromARGB(
                       255, 93, 169, 138), //background color of button
 
                   elevation: 3, //elevation of button
                   shape: RoundedRectangleBorder(
                       //to set border radius to button
                       borderRadius: BorderRadius.circular(5)),
-                  padding: EdgeInsets.all(20) //content padding inside button
+                  padding: const EdgeInsets.all(20) //content padding inside button
                   ),
-              icon: Icon(
+              icon: const Icon(
                 Icons.lock_open,
                 size: 32,
               ),
-              label: Text(
-                "Sign In",
+              label: const Text(
+                'Sign In',
                 style: TextStyle(fontSize: 24),
               ),
               onPressed: () {
@@ -120,7 +119,7 @@ class _LoginWidgetState extends State<LoginWidget> {
               },
             ),
           ), //sizedbox for button
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
           //Register Account Button
@@ -130,12 +129,12 @@ class _LoginWidgetState extends State<LoginWidget> {
             child: TextButton(
               style: TextButton.styleFrom(
                 primary: Colors.white,
-                side: BorderSide(width: 1, color: Colors.white),
+                side: const BorderSide(width: 1, color: Colors.white),
                 shape: RoundedRectangleBorder(
                     //to set border radius to button
                     borderRadius: BorderRadius.circular(5)),
               ),
-              child: Text(
+              child: const Text(
                 'Register Account',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 25),
